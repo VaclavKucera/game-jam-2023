@@ -313,7 +313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   dashSpeed: 15
-  dashDuration: 1
+  dashDuration: 0.5
+  dashRecoveryDuration: 1
 --- !u!58 &1668703101
 CircleCollider2D:
   m_ObjectHideFlags: 0
