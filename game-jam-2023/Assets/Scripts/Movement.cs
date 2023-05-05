@@ -13,12 +13,12 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private bool dashing;
     private bool canDash = true;
-    private Camera camera;
+    private Camera mainCamera;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     void Update()
@@ -29,8 +29,6 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && canDash)
         {
             Debug.Log("Dash");
-            dashing = true;
-            canDash = false;
             StartCoroutine(Dash());
         }
 
@@ -42,6 +40,8 @@ public class Movement : MonoBehaviour
 
     IEnumerator Dash()
     {
+        dashing = true;
+        canDash = false;
         var dashTime = dashDuration;
         while (dashTime > 0)
         {
@@ -62,7 +62,7 @@ public class Movement : MonoBehaviour
 
     void UpdateRotation()
     {
-        Vector2 mousePosition = camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var position = transform.position;
         var angle = Mathf.Atan2(mousePosition.y - position.y, mousePosition.x - position.x) * Mathf.Rad2Deg;
         rb.rotation = angle - 90;
