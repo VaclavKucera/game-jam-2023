@@ -1,0 +1,183 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BossArmsController : MonoBehaviour
+{
+    public enum ArmPositionType { Default, SideSlam, MidSlam }
+    public float armMoveDuration = 1.0f;
+
+    private GameObject leftArm;
+    private GameObject rightArm;
+    private GameObject leftArmOffsetContainer;
+    private GameObject rightArmOffsetContainer;
+    private BossMainAnimator bossMainAnimator;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+        leftArm = transform.GetChild(0).gameObject;
+        rightArm = transform.GetChild(1).gameObject;
+        leftArmOffsetContainer = leftArm.transform.GetChild(0).gameObject;
+        rightArmOffsetContainer = rightArm.transform.GetChild(0).gameObject;
+        bossMainAnimator = transform.parent.GetComponent<BossMainAnimator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Temporary key-based position setting
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SetArmPositionType(ArmPositionType.Default);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            SetArmPositionType(ArmPositionType.SideSlam);
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            SetArmPositionType(ArmPositionType.MidSlam);
+        }
+
+        // Trigger RunSideSlamAnimation when a mouse button is clicked
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Input.GetMouseButtonDown(0)) {
+                RunMidSlamAnimation(mousePosition);
+            } else {
+                RunSideSlamAnimation(mousePosition, new Vector2(10, 0));
+            }
+        }
+    }
+
+    public void RunSideSlamAnimation(Vector2 leftPoint, Vector2 rightPoint)
+    {
+        SetArmPositionType(ArmPositionType.SideSlam);
+        StartCoroutine(PointArmAtPosition(leftArm, leftPoint));
+        StartCoroutine(PointArmAtPosition(rightArm, rightPoint));
+
+        float leftArmAngle = CalculateTargetAngle(transform.position, leftPoint);
+        float rightArmAngle = CalculateTargetAngle(transform.position, rightPoint);
+        float lookAtAngle = (leftArmAngle + rightArmAngle) / 2 + 90;
+        bossMainAnimator.LookAtAngle(lookAtAngle);
+    }
+
+    public void RunMidSlamAnimation(Vector2 point)
+    {
+        SetArmPositionType(ArmPositionType.MidSlam);
+        StartCoroutine(PointArmAtPosition(leftArm, point));
+        StartCoroutine(PointArmAtPosition(rightArm, point));
+
+        float angle = CalculateTargetAngle(transform.position, point) + 90;
+        bossMainAnimator.LookAtAngle(angle);
+    }
+
+    public void ResetToDefaultPosition() {
+        SetArmPositionType(ArmPositionType.Default);
+    }
+
+    IEnumerator PointArmAtPosition(GameObject arm, Vector2 targetPoint)
+    {
+        Quaternion initialRotation = arm.transform.rotation;
+        Quaternion targetRotation = CalculateTargetRotation(arm.transform.position, targetPoint);
+        float elapsedTime = 0;
+
+        while (elapsedTime < armMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / armMoveDuration;
+
+            arm.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, progress);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator PointArmAtRotation(GameObject arm, Quaternion targetRotation)
+    {
+        Quaternion initialRotation = arm.transform.rotation;
+        float elapsedTime = 0;
+
+        while (elapsedTime < armMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / armMoveDuration;
+
+            arm.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, progress);
+
+            yield return null;
+        }
+    }
+
+    private Quaternion CalculateTargetRotation(Vector3 armPosition, Vector2 targetPoint)
+    {
+        Vector2 direction = targetPoint - (Vector2)armPosition;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
+        return Quaternion.Euler(new Vector3(0, 0, angle));
+    }
+
+    private void SetArmPositionType(ArmPositionType type)
+    {
+        Vector3 leftArmTargetPosition, rightArmTargetPosition;
+        Quaternion leftArmTargetRotation, rightArmTargetRotation;
+
+        switch (type)
+        {
+            case ArmPositionType.Default:
+                leftArmTargetPosition = new Vector3(0.84f, -0.5f, 0);
+                leftArmTargetRotation = Quaternion.Euler(0, 0, -14f);
+                rightArmTargetPosition = new Vector3(-0.84f, -0.5f, 0);
+                rightArmTargetRotation = Quaternion.Euler(0, 0, 14f);
+
+                Quaternion armRotationMidpoint =  Quaternion.Slerp(leftArm.transform.rotation, rightArm.transform.rotation , 0.5f);
+                StartCoroutine(PointArmAtRotation(leftArm, armRotationMidpoint));
+                StartCoroutine(PointArmAtRotation(rightArm, armRotationMidpoint));
+                break;
+            case ArmPositionType.SideSlam:
+                leftArmTargetPosition = new Vector3(0, -1.7f, 0);
+                leftArmTargetRotation = Quaternion.Euler(0, 0, 0);
+                rightArmTargetPosition = new Vector3(0, -1.7f, 0);
+                rightArmTargetRotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case ArmPositionType.MidSlam:
+                leftArmTargetPosition = new Vector3(0.5f, -0.86f, 0);
+                leftArmTargetRotation = Quaternion.Euler(0, 0, -40.14f);
+                rightArmTargetPosition = new Vector3(-0.5f, -0.86f, 0);
+                rightArmTargetRotation = Quaternion.Euler(0, 0, 40.14f);
+                break;
+            default:
+                return;
+        }
+
+        StartCoroutine(MoveArmOffsetToTargetPosition(leftArmOffsetContainer, leftArmTargetPosition, leftArmTargetRotation));
+        StartCoroutine(MoveArmOffsetToTargetPosition(rightArmOffsetContainer, rightArmTargetPosition, rightArmTargetRotation));
+    }
+
+    IEnumerator MoveArmOffsetToTargetPosition(GameObject arm, Vector3 targetPosition, Quaternion targetRotation)
+    {
+        Vector3 initialPosition = arm.transform.localPosition;
+        Quaternion initialRotation = arm.transform.localRotation;
+        float elapsedTime = 0;
+
+        while (elapsedTime < armMoveDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / armMoveDuration;
+
+            arm.transform.localPosition = Vector3.Lerp(initialPosition, targetPosition, progress);
+            arm.transform.localRotation = Quaternion.Lerp(initialRotation, targetRotation, progress);
+
+            yield return null;
+        }
+    }
+
+    private float CalculateTargetAngle(Vector3 position, Vector2 targetPoint)
+    {
+        Vector2 direction = targetPoint - (Vector2)position;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+}
