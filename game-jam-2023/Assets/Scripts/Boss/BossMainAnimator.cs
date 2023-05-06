@@ -19,8 +19,6 @@ public class BossMainAnimator : MonoBehaviour
     private float currentTime;
     private float targetAngle;
 
-    private int slamsLeft = 3;
-
     // Start is called before the first frame update
     void Start()
     {

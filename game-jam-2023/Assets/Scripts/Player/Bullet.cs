@@ -32,7 +32,20 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy hit");
+            var minion = collision.collider.gameObject.GetComponentInChildren<MinionController>();
+            if (minion != null)
+            {
+                minion.takeDamage(damage);
+                Debug.Log("Minion hit");
+            }
+
+            var turret = collision.collider.gameObject.GetComponentInChildren<TurretShooting>();
+            if (turret != null)
+            {
+                turret.takeDamage(damage);
+                Debug.Log("Turret hit");
+            }
+
             Destroy(gameObject);
         }
     }

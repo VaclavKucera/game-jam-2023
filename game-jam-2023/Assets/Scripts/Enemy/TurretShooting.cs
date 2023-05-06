@@ -6,9 +6,15 @@ public class TurretShooting : MonoBehaviour
 {
     public Transform player;
     public GameObject bulletPrefab;
+    public int totalHealth = 100;
 
     public float fireRate = 2f;
     private float nextFire = 0f;
+
+    public void takeDamage(int damage)
+    {
+        totalHealth -= damage;
+    }
 
     void Start()
     {
@@ -17,6 +23,12 @@ public class TurretShooting : MonoBehaviour
 
     void Update()
     {
+        if (totalHealth <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         FollowPlayer();
 
         if (Time.time > nextFire)
