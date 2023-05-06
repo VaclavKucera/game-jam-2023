@@ -1045,7 +1045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &897512905
 Transform:
   m_ObjectHideFlags: 0
@@ -2434,11 +2434,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8303742ef559fb74b8068df551a8d36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pylon_Top: {fileID: 1557153674}
-  Pylon_TopRight: {fileID: 488732903}
-  Pylon_BottomRight: {fileID: 949551331}
-  Pylon_BottomLeft: {fileID: 2055961295}
-  Pylon_TopLeft: {fileID: 1956033749}
+  Pylon_Top: {fileID: 0}
+  Pylon_TopRight: {fileID: 0}
+  Pylon_BottomRight: {fileID: 0}
+  Pylon_BottomLeft: {fileID: 0}
+  Pylon_TopLeft: {fileID: 0}
   Mechanics: {fileID: 1785775812}
   tetherCooldown: 0
   runesCooldown: 0
