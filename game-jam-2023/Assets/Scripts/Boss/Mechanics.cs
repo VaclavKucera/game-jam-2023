@@ -101,6 +101,8 @@ public class Mechanics : MonoBehaviour
     public void SoulFeast()
     {
         //spawn adds from the sides of the map crawling to the boss
+        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
     }
     #endregion
 
