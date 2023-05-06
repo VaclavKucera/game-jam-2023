@@ -56,9 +56,14 @@ public class Mechanics : MonoBehaviour
         //spawn adds, boss invuln
     }
 
-    public void Disintegrate()
+    public void Disintegrate(GameObject pylon)
     {
         //launch a projectile at the pylons
+    }
+
+    public void FinalRitual()
+    {
+
     }
     #endregion
 
