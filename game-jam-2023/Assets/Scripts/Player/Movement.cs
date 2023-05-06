@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour
     public float dashRecoveryDuration = 0.5f;
     public float stamina = 100;
     public float maxStamina = 100;
-    public float staminaRegen = 0.1f;
+    public float staminaRegen = 0.5f;
 
     private float moveInputHorizontal;
     private float moveInputVertical;
