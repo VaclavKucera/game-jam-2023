@@ -4,7 +4,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
-    public float dashSpeed = 15.0f;
+    public float dashSpeed = 10.0f;
     public float dashDuration = 0.3f;
     public float dashRecoveryDuration = 1f;
 
@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour
         UpdateRotation();
     }
 
-    IEnumerator Dash()
+    private IEnumerator Dash()
     {
         dashing = true;
         canDash = false;
@@ -60,7 +60,7 @@ public class Movement : MonoBehaviour
         canDash = true;
     }
 
-    void UpdateRotation()
+    private void UpdateRotation()
     {
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         var position = transform.position;
