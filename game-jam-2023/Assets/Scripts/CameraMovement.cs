@@ -23,11 +23,11 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = Vector3.SmoothDamp(
+        /*transform.position = Vector3.SmoothDamp(
             transform.position,
             player.position + offset,
             ref currentVelocity,
             smoothTime
-        );
+        ); */
     }
 }
