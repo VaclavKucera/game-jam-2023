@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float moveSpeed = 5.0f;
-    public float dashSpeed = 10.0f;
+    public float moveSpeed = 5f;
+    public float dashSpeed = 10f;
     public float dashDuration = 0.3f;
     public float dashRecoveryDuration = 1f;
 
