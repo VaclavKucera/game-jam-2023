@@ -6,19 +6,20 @@ namespace Library
 {
     public static class RandomGeneration
     {
-        private static readonly Vector3 DefaultCenter = Vector3.zero;
+        private static readonly Vector2 DefaultCenter = Vector2.zero;
         private const float DefaultRadius = 3.9f;
         private const float MinRadius = 2.2f;
 
-        public static Vector3 RandomPosition(Vector3? center = null, float? radius = null)
+        public static Vector2 RandomPosition(Vector2? center = null, float? radius = null)
         {
-            var r = Math.Max(radius ?? DefaultRadius, MinRadius);
+            var r = radius ?? DefaultRadius;
             var c = center ?? DefaultCenter;
-            return new Vector3(
-                Random.Range(c.x - r, c.x + r),
-                Random.Range(c.y - r, c.y + r),
-                Random.Range(c.z - r, c.z + r)
-            );
+            var x = Random.Range(c.x + MinRadius, c.x + r);
+            var y = Random.Range(c.y + MinRadius, c.y + r);
+            var signX = Random.Range(0, 2) * 2 - 1;
+            var signY = Random.Range(0, 2) * 2 - 1;
+
+            return new Vector2(x * signX, y * signY);
         }
     }
 }
