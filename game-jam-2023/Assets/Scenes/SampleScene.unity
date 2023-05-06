@@ -529,8 +529,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8807830311369626625}
   - {fileID: 2963204477104616518}
+  - {fileID: 8807830311369626625}
   m_Father: {fileID: 4380705839421241759}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 14}
@@ -1202,11 +1202,6 @@ MonoBehaviour:
   isAbleToAutoAttack: 1
   isAttacking: 0
   breakpoints: 0
---- !u!4 &1829484603 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
-  m_PrefabInstance: {fileID: 2141580345}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1931888081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,9 +2523,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8574984407114570651}
   - {fileID: 6095417906602021225}
   - {fileID: 695587414954721739}
-  - {fileID: 8574984407114570651}
   m_Father: {fileID: 1999923854}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2626,9 +2621,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4328318459930289699}
   - {fileID: 1893730887262863123}
   - {fileID: 7481914629820274706}
-  - {fileID: 4328318459930289699}
   m_Father: {fileID: 964051586}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

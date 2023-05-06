@@ -6,7 +6,21 @@ using UnityEngine;
 public class BossArmsController : MonoBehaviour
 {
     public enum ArmPositionType { Default, SideSlam, MidSlam }
+    public enum FistHeight { Top, Mid, Bottom }
     public float armMoveDuration = 1.0f;
+
+    public GameObject player;
+
+    // TODO: Might wanna take this from some other common place
+    private float midArmAimDuration = 0.3f;
+    private float midArmTopDelay = 3f;
+    private float midArmAttackDuration = 0.03f;
+    private float midArmWaitCooldown = 1f;
+
+    private float sideArmAimDuration = 2f;
+    private float sideArmTopDelay = 3f;
+    private float sideArmAttackDuration = 0.03f;
+    private float sideArmWaitCooldown = 1f;
 
     private GameObject leftArm;
     private GameObject rightArm;
@@ -17,29 +31,32 @@ public class BossArmsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         leftArm = transform.GetChild(0).gameObject;
         rightArm = transform.GetChild(1).gameObject;
         leftArmOffsetContainer = leftArm.transform.GetChild(0).gameObject;
         rightArmOffsetContainer = rightArm.transform.GetChild(0).gameObject;
         bossMainAnimator = transform.parent.GetComponent<BossMainAnimator>();
+        SetFistHeight(FistHeight.Mid);
     }
 
     // Update is called once per frame
     void Update()
     {
         // Temporary key-based position setting
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            SetArmPositionType(ArmPositionType.Default);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            SetArmPositionType(ArmPositionType.SideSlam);
-        }
-        else if (Input.GetKeyDown(KeyCode.M))
-        {
-            SetArmPositionType(ArmPositionType.MidSlam);
+        // if (Input.GetKeyDown(KeyCode.D))
+        // {
+        //     SetArmPositionType(ArmPositionType.Default);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     SetArmPositionType(ArmPositionType.SideSlam);
+        // }
+        // else if (Input.GetKeyDown(KeyCode.M))
+        // {
+        //     SetArmPositionType(ArmPositionType.MidSlam);
+        // }
+        if (Input.GetKeyDown(KeyCode.L)) {
+            StartCoroutine(MidSlamSequence());
         }
 
         // Trigger RunSideSlamAnimation when a mouse button is clicked
@@ -179,5 +196,26 @@ public class BossArmsController : MonoBehaviour
     {
         Vector2 direction = targetPoint - (Vector2)position;
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+
+    private void SetFistHeight(FistHeight height) {
+        var leftFist = leftArmOffsetContainer.transform.GetChild(1).gameObject;
+        var rightFist = rightArmOffsetContainer.transform.GetChild(1).gameObject;
+
+        leftFist.transform.GetChild(0).gameObject.SetActive(height == FistHeight.Bottom);
+        rightFist.transform.GetChild(0).gameObject.SetActive(height == FistHeight.Bottom);
+        leftFist.transform.GetChild(1).gameObject.SetActive(height == FistHeight.Mid);
+        rightFist.transform.GetChild(1).gameObject.SetActive(height == FistHeight.Mid);
+        leftFist.transform.GetChild(2).gameObject.SetActive(height == FistHeight.Top);
+        rightFist.transform.GetChild(2).gameObject.SetActive(height == FistHeight.Top);
+    }
+
+    private IEnumerator MidSlamSequence() {
+        this.armMoveDuration = this.midArmAimDuration;
+
+        var playerPosition = player.transform.position;
+        RunMidSlamAnimation(playerPosition);
+
+        yield return new WaitForSeconds(this.midArmAimDuration);
     }
 }
