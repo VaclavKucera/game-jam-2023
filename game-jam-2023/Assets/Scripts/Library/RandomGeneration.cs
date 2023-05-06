@@ -7,8 +7,8 @@ namespace Library
     public static class RandomGeneration
     {
         private static readonly Vector3 DefaultCenter = Vector3.zero;
-        private const float DefaultRadius = 4.4f;
-        private const float MinRadius = 2.4f;
+        private const float DefaultRadius = 3.9f;
+        private const float MinRadius = 2.2f;
 
         public static Vector3 RandomPosition(Vector3? center = null, float? radius = null)
         {
