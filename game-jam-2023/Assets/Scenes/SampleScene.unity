@@ -470,6 +470,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
   m_PrefabInstance: {fileID: 2141580345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &582051972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+  m_PrefabInstance: {fileID: 2141580345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da987f8dbd11e6f44ab954edc31bf234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676302407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,7 +1025,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1483,7 +1494,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -192697689
   m_SortingLayer: -1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 395f6b9556f14704790df6035be6ee3a, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -1504,7 +1515,7 @@ Transform:
   m_GameObject: {fileID: 1668703096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.02, y: -1.96, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1164580235}
@@ -1651,6 +1662,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BossController: {fileID: 1785775813}
+  mainAnimator: {fileID: 582051972}
   TotemPrefab: {fileID: 4915103548232353350, guid: d8f4430efb286db4a8d3ac4754c95170, type: 3}
   MinionPrefab: {fileID: 4915103548232353350, guid: 2fcbc08faff568746b48d112e314733e, type: 3}
 --- !u!114 &1785775813
@@ -1819,6 +1831,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1668703096}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: BossController
+      value: 
+      objectReference: {fileID: 1785775813}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: StaticTelegraph
+      value: 
+      objectReference: {fileID: 3455357778501600759, guid: c4a9d575eefda6247980117871fc5c3e, type: 3}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: OnPlayerTelegraph
+      value: 
+      objectReference: {fileID: 3455357778501600759, guid: aa46d54995c19b748ad1bb2fd2072725, type: 3}
     - target: {fileID: 3414972839505056415, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_Name
       value: BossSpritesController
