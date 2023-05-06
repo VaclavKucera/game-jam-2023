@@ -276,7 +276,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1668703098}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 2
+    OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -967,6 +967,7 @@ Transform:
   m_Children:
   - {fileID: 1200387779}
   - {fileID: 1785775811}
+  - {fileID: 3940221349517272758}
   - {fileID: 1829484603}
   - {fileID: 1397672566}
   m_Father: {fileID: 0}
@@ -1588,11 +1589,6 @@ MonoBehaviour:
   isAbleToAutoAttack: 1
   isAttacking: 0
   breakpoints: 0
---- !u!4 &1829484603 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
-  m_PrefabInstance: {fileID: 2141580345}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1931888081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,53 +1726,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1182766377}
     m_Modifications:
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 1016747804702740855, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1668703096}
+    - target: {fileID: 3414972839505056415, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: m_Name
+      value: BossSpritesController
+      objectReference: {fileID: 0}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3940221347829303951, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+    - target: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9212456253239998448, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
-      propertyPath: m_Name
-      value: BossSpritesController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
