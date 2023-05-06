@@ -171,7 +171,7 @@ MonoBehaviour:
   dashRecoveryDuration: 0.5
   stamina: 100
   maxStamina: 100
-  staminaRegen: 0.1
+  staminaRegen: 0.5
 --- !u!114 &2289612059049790220
 MonoBehaviour:
   m_ObjectHideFlags: 0
