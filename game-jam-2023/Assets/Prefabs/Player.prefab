@@ -165,10 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6864f02efaf99d41b27f0b7ba4127df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  dashSpeed: 10
+  moveSpeed: 2
+  dashSpeed: 4
   dashDuration: 0.3
-  dashRecoveryDuration: 1
+  dashRecoveryDuration: 0.5
   stamina: 100
   maxStamina: 100
   staminaRegen: 0.1
