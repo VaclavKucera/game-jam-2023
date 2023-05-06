@@ -10,11 +10,6 @@ public class Shooting : MonoBehaviour
     public float fireRate = 10f;
     private float nextFire = 0f;
 
-    void Start()
-    {
-        // firePoint = GetComponentInChildren<Transform>();
-    }
-
     void Update()
     {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
