@@ -32,7 +32,12 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Enemy hit");
+            var minion = collision.collider.gameObject.GetComponentInChildren<MinionController>();
+            if (minion != null)
+            {
+                minion.takeDamage(damage);
+                Debug.Log("Minion hit");
+            }
             Destroy(gameObject);
         }
     }
