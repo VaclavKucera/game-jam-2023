@@ -38,6 +38,14 @@ public class Bullet : MonoBehaviour
                 minion.takeDamage(damage);
                 Debug.Log("Minion hit");
             }
+
+            var turret = collision.collider.gameObject.GetComponentInChildren<TurretShooting>();
+            if (turret != null)
+            {
+                turret.takeDamage(damage);
+                Debug.Log("Turret hit");
+            }
+
             Destroy(gameObject);
         }
     }
