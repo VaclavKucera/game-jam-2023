@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
-    public int damage = 40;
+    public int damage = 10;
 
     private Rigidbody2D rb;
 
@@ -17,11 +17,12 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        BossController boss = collision.collider.GetComponent<BossController>();
+        BossController boss = collision.collider.GetComponentInChildren<BossController>();
         if (boss != null)
         {
+            Debug.Log("Boss hit");
             boss.takeDamage(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
