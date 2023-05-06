@@ -30,5 +30,10 @@ public class Bullet : MonoBehaviour
             Debug.Log("Wall hit");
             Destroy(gameObject);
         }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Enemy hit");
+            Destroy(gameObject);
+        }
     }
 }

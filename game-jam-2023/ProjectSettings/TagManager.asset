@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Arena
   - Boss
+  - Enemy
   layers:
   - Default
   - TransparentFX
