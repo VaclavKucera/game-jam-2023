@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Library;
 using UnityEngine;
 using static BossController;
 
 public class Mechanics : MonoBehaviour
 {
     public BossController BossController;
+    public GameObject TotemPrefab;
+    public GameObject MinionPrefab;
+
 
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
@@ -52,6 +56,9 @@ public class Mechanics : MonoBehaviour
     public void SummonTotems()
     {
         //place 3 turrets that can be destroyed with Slam attacks
+        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
     }
 
     public void Slam()
