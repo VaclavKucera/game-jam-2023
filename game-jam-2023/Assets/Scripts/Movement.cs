@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         moveInputHorizontal = Input.GetAxis("Horizontal");
         moveInputVertical = Input.GetAxis("Vertical");
