@@ -20,9 +20,9 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //var player = collision.collider.gameObject.GetComponentInChildren<PlayerController>();
+            var player = collision.collider.gameObject.GetComponentInChildren<PlayerController>();
             Debug.Log("Player hit");
-           // player.TakeDamage(damage);
+            player.TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Arena"))
