@@ -45,11 +45,6 @@ public class BossArmsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L)) {
-            StartCoroutine(MidSlamSequence());
-        } else if (Input.GetKeyDown(KeyCode.K)) {
-            StartCoroutine(SideSlamSequence(new Vector2(-10, -10), new Vector2(10, 0)));
-        }
     }
 
     public void RunSideSlamAnimation(Vector2 leftPoint, Vector2 rightPoint)
@@ -57,9 +52,9 @@ public class BossArmsController : MonoBehaviour
         StartCoroutine(SideSlamSequence(leftPoint, rightPoint));
     }
 
-    public void RunMidSlamAnimation()
+    public void RunMidSlamAnimation(int count)
     {
-        StartCoroutine(MidSlamSequence());
+        StartCoroutine(MidSlamSequence(count));
     }
 
     public void ResetToDefaultPosition() {
@@ -181,7 +176,7 @@ public class BossArmsController : MonoBehaviour
         rightFist.transform.GetChild(2).gameObject.SetActive(height == FistHeight.Top);
     }
 
-    private IEnumerator MidSlamSequence() {
+    private IEnumerator MidSlamSequence(int count) {
         this.armMoveDuration = this.midArmSnapDuration;
         SetArmPositionType(ArmPositionType.MidSlam);
 
@@ -226,6 +221,8 @@ public class BossArmsController : MonoBehaviour
         yield return new WaitForSeconds(this.midArmWaitCooldown);
         SetFistHeight(FistHeight.Mid);
         SetArmPositionType(ArmPositionType.Default);
+
+        bossMainAnimator.SlamAttack(count);
     }
 
     private IEnumerator SideSlamSequence(Vector2 leftPoint, Vector2 rightPoint) {

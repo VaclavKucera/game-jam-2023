@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class BossMainAnimator : MonoBehaviour
@@ -17,6 +18,8 @@ public class BossMainAnimator : MonoBehaviour
     private Vector3 originalScale;
     private float currentTime;
     private float targetAngle;
+
+    private int slamsLeft = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -60,24 +63,17 @@ public class BossMainAnimator : MonoBehaviour
         LookAtAngle(angle);
     }
 
-    public void SlamAttack()
+    public void SlamAttack(int count)
     {
-        BossController.isAttacking = true;
-        StartCoroutine(SlamAttackCoroutine());
-    }
-    IEnumerator SlamAttackCoroutine()
-    {
-        armsController.RunMidSlamAnimation();
-        yield return new WaitForSeconds(0.5f);
-        armsController.RunMidSlamAnimation();
-        yield return new WaitForSeconds(0.5f);
-        armsController.RunMidSlamAnimation();
-        yield return new WaitForSeconds(0.5f);
-        BossController.onAutoattackAnimationComplete();
+        if (count > 0)
+        {
+            armsController.RunMidSlamAnimation(--count);
+        }
+        else 
+            BossController.onAutoattackAnimationComplete();
     }
     public void GroundPoundAttack(Vector3 left, Vector3 right)
     {
-        BossController.isAttacking = true;
         StartCoroutine(GroundPoundAttackCoroutine(left, right));
     }
     IEnumerator GroundPoundAttackCoroutine(Vector3 left, Vector3 right)
@@ -87,7 +83,7 @@ public class BossMainAnimator : MonoBehaviour
         var secondTG = Instantiate(StaticTelegraph, right, Quaternion.identity);
         secondTG.GetComponent<TelegraphController>().setTimer(2);
 
-        armsController.RunSideSlamAnimation(left, right);
+        armsController.RunSideSlamAnimation(new Vector2(left.x, left.y), new Vector2(right.x, right.y));
         yield return new WaitForSeconds(1.5f);
         BossController.onAutoattackAnimationComplete();
     }

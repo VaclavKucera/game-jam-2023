@@ -21,8 +21,7 @@ public class Mechanics : MonoBehaviour
     #region Basic Attacks
     public void AutoAttack()
     {
-        BossController.isAttacking = true;
-
+        Debug.Log("Auto-attack started: " + nextAutoAttack);
         switch (nextAutoAttack)
         {
             case AutoAttackTypes.Totems: SummonTotems(); break;
@@ -42,7 +41,7 @@ public class Mechanics : MonoBehaviour
                 }
                 break;
         }
-        
+        Debug.Log("We should still have: " + nextAutoAttack);
         QueueNextAuto();
     }
     private void QueueNextAuto()
@@ -57,25 +56,27 @@ public class Mechanics : MonoBehaviour
 
     public void SummonTotems()
     {
-        BossController.isAttacking = true;
+        Debug.Log("Summon start");
         StartCoroutine(SummonTotemsCoroutine());
+        Debug.Log("Summon end");
         //place 3 turrets that can be destroyed with Slam attacks
     }
     IEnumerator SummonTotemsCoroutine()
     {
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         BossController.onAutoattackAnimationComplete();
+        Debug.Log("End of Totem Coro");
     }
 
     public void Slam()
     {
         BossController.isAttacking = true;
-        mainAnimator.SlamAttack();
+        mainAnimator.SlamAttack(3);
     }
     
     public void GroundPound()
