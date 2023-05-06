@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8665431109952466621}
   m_Layer: 0
   m_Name: Totem
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
