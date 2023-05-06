@@ -381,6 +381,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &582051971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+  m_PrefabInstance: {fileID: 2141580345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &676302407
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +801,7 @@ SpriteRenderer:
   m_SortingLayerID: -718581057
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6b836dc7573e83446bbc7d24f44ad997, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df3012691647d4fd5bb394bc6beecd97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -815,7 +820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900669169}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -967,9 +972,8 @@ Transform:
   m_Children:
   - {fileID: 1200387779}
   - {fileID: 1785775811}
-  - {fileID: 3940221349517272758}
-  - {fileID: 1829484603}
   - {fileID: 1397672566}
+  - {fileID: 582051971}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
