@@ -5,15 +5,29 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public float tetherTimer;
-    public float runesTimer;
+    [Header("Mechanics Objects")]
 
-    public bool isVulnerable = false;
-    public int currentHealth = totalHealth;
+    [Header("Scripts")]
+    public Mechanics Mechanics;
+
+    [Header("Configuration")]
+    public float tetherCooldown;
+    public float runesCooldown;
+
+    [Header("Animation Durations")]
+    public float tetherActivationDuration = 3f;
+    public float runesActivationDuration = 3f;
+
+    public const int totalHealth = 40000;
+
+    protected float tetherTimer;
+    protected float runesTimer;
+    protected bool isVulnerable = false;
+    protected int currentHealth = totalHealth;
+
     public enum Phases { BeforeStart, MainPhase_1, MainPhase_2, MainPhase_3, FinalPhase };
     public Phases currentPhase = 0;
 
-    public const int totalHealth = 40000;
 
     private const int hp_75 = totalHealth / 100 * 75;
     private const int hp_66 = totalHealth / 100 * 66;
@@ -71,25 +85,19 @@ public class BossController : MonoBehaviour
         runesTimer = tetherTimer;
     }
 
-    public void TetherTimer()
-    {
-        if (tetherTimer - Time.time > 10f)
-        {
-            
-        } // do tether
-    }
-
-    public void RunesTimer()
-    {
-        if (runesTimer -  Time.time > 25f)
-        {
-
-        } // do runes
-    }
-
     // Update is called once per frame
     void Update()
     {
-        
+        if (Time.time - tetherTimer >= tetherCooldown)
+        {
+            Mechanics.Tether();
+            tetherTimer = Time.time + tetherActivationDuration;
+        }
+
+        if (Time.time - runesTimer >= runesCooldown)
+        {
+            Mechanics.Runes();
+            runesTimer = Time.time + runesActivationDuration;
+        }
     }
 }
