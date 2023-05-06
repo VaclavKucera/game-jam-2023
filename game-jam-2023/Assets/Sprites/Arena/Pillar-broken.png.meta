@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: df3012691647d4fd5bb394bc6beecd97
+guid: 89d1c7859a0234cfcaa6e2499f999add
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4360006562237445957
-    second: Arena-v4_0
+      213: -391144416424128365
+    second: Pillar-broken_0
   - first:
-      213: 2127270187191340165
-    second: Arena-v4_1
+      213: -8593775732654571552
+    second: Pillar-broken_1
   - first:
-      213: -1863901499690779214
-    second: Arena-v4_2
-  - first:
-      213: 560775164688245957
-    second: Arena-v4_3
-  - first:
-      213: -2129174584813297086
-    second: Arena-v4_4
-  - first:
-      213: 5642280030089666780
-    second: Arena-v4_5
+      213: 3874598611972537169
+    second: Pillar-broken_2
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -63,7 +54,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -125,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arena-v4_0
+      name: Pillar-broken_0
       rect:
         serializedVersion: 2
-        x: 92
-        y: 311
-        width: 161
-        height: 123
+        x: 14
+        y: 48
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 547f8883edad18c30800000000000000
-      internalID: 4360006562237445957
+      spriteID: 3909923c930629af0800000000000000
+      internalID: -391144416424128365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arena-v4_1
+      name: Pillar-broken_1
       rect:
         serializedVersion: 2
-        x: 93
-        y: 35
-        width: 327
-        height: 393
+        x: 21
+        y: 37
+        width: 6
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 58c81d8e6f4958d10800000000000000
-      internalID: 2127270187191340165
+      spriteID: 0ef70cfb086ccb880800000000000000
+      internalID: -8593775732654571552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arena-v4_2
+      name: Pillar-broken_2
       rect:
         serializedVersion: 2
-        x: 259
-        y: 311
-        width: 161
-        height: 123
+        x: 8
+        y: 3
+        width: 24
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,71 +172,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2bdfc9e16771226e0800000000000000
-      internalID: -1863901499690779214
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arena-v4_3
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 116
-        width: 107
-        height: 190
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c4aa1a8a0648c700800000000000000
-      internalID: 560775164688245957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arena-v4_4
-      rect:
-        serializedVersion: 2
-        x: 359
-        y: 116
-        width: 107
-        height: 190
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 242e967fef6a372e0800000000000000
-      internalID: -2129174584813297086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arena-v4_5
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 0
-        width: 434
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cd066c41bc76d4e40800000000000000
-      internalID: 5642280030089666780
+      spriteID: 15b38d9b8e655c530800000000000000
+      internalID: 3874598611972537169
       vertices: []
       indices: 
       edges: []
@@ -261,12 +189,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Arena-v4_0: 4360006562237445957
-      Arena-v4_1: 2127270187191340165
-      Arena-v4_2: -1863901499690779214
-      Arena-v4_3: 560775164688245957
-      Arena-v4_4: -2129174584813297086
-      Arena-v4_5: 5642280030089666780
+      Pillar-broken_0: -391144416424128365
+      Pillar-broken_1: -8593775732654571552
+      Pillar-broken_2: 3874598611972537169
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

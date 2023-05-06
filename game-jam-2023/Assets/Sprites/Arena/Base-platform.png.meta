@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: f9f66ca0b7168481a87fa7d001cbc9a7
+guid: 7ab9b064554c14bb290d82dd2c69bc5c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6833856378236771391
-    second: Background-256_0
+      213: -1500885160948635525
+    second: Base-platform_0
+  - first:
+      213: -6490754277497516542
+    second: Base-platform_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
   alignment: 0
@@ -110,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Background-256_0
+      name: Base-platform_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 213
+        y: 213
+        width: 86
+        height: 86
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,8 +127,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f3c17de2b2cb6de50800000000000000
-      internalID: 6833856378236771391
+      spriteID: b78600de5e8cb2be0800000000000000
+      internalID: -1500885160948635525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Base-platform_1
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 243
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20ec965cf553ce5a0800000000000000
+      internalID: -6490754277497516542
       vertices: []
       indices: 
       edges: []
@@ -133,7 +157,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +165,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Background-256_0: 6833856378236771391
+      Base-platform_0: -1500885160948635525
+      Base-platform_1: -6490754277497516542
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
