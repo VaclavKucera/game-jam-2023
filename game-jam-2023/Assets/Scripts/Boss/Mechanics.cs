@@ -2,22 +2,61 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BossController;
 
 public class Mechanics : MonoBehaviour
 {
     public BossController BossController;
 
+    private bool AASpecial_iterator = true;
+    private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
+    private AutoAttackTypes nextAutoAttack = 0;
+
 
     #region Basic Attacks
+    public void AutoAttack()
+    {
+        BossController.isAttacking = true;
 
-    public void SpawnTurrets()
+        switch (nextAutoAttack)
+        {
+            case AutoAttackTypes.Totems: SummonTotems(); break;
+            case AutoAttackTypes.Slam: Slam(); break;
+            case AutoAttackTypes.GroundPound: GroundPound(); break;
+            case AutoAttackTypes.Hurricane: Hurricane(); break;
+            case AutoAttackTypes.Special:
+                if (AASpecial_iterator)
+                {
+                    Cataclysm();
+                    AASpecial_iterator = false;
+                }
+                else
+                {
+                    SoulFeast();
+                    AASpecial_iterator = true;
+                }
+                break;
+        }
+        
+        QueueNextAuto();
+    }
+    private void QueueNextAuto()
+    {
+        if (nextAutoAttack == AutoAttackTypes.Special)
+        {
+            nextAutoAttack = 0;
+        }
+        else nextAutoAttack++;
+    }
+
+    public void SummonTotems()
     {
         //place 3 turrets that can be destroyed with Slam attacks
     }
 
     public void Slam()
     {
-        //basic attack
+        // 3 consecutive slam animations; basic attack
     }
     
     public void GroundPound()
@@ -56,9 +95,14 @@ public class Mechanics : MonoBehaviour
         //spawn adds, boss invuln
     }
 
-    public void Disintegrate()
+    public void Disintegrate(GameObject pylon)
     {
         //launch a projectile at the pylons
+    }
+
+    public void FinalRitual()
+    {
+
     }
     #endregion
 
