@@ -386,6 +386,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5007950623660228547, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
   m_PrefabInstance: {fileID: 2141580345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &582051972 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+  m_PrefabInstance: {fileID: 2141580345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da987f8dbd11e6f44ab954edc31bf234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676302407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BossController: {fileID: 1785775813}
+  mainAnimator: {fileID: 582051972}
   TotemPrefab: {fileID: 4915103548232353350, guid: d8f4430efb286db4a8d3ac4754c95170, type: 3}
   MinionPrefab: {fileID: 4915103548232353350, guid: 2fcbc08faff568746b48d112e314733e, type: 3}
 --- !u!114 &1785775813
@@ -1734,6 +1746,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1668703096}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: BossController
+      value: 
+      objectReference: {fileID: 1785775813}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: StaticTelegraph
+      value: 
+      objectReference: {fileID: 3455357778501600759, guid: c4a9d575eefda6247980117871fc5c3e, type: 3}
+    - target: {fileID: 2169393049875005713, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
+      propertyPath: OnPlayerTelegraph
+      value: 
+      objectReference: {fileID: 3455357778501600759, guid: aa46d54995c19b748ad1bb2fd2072725, type: 3}
     - target: {fileID: 3414972839505056415, guid: 2f40e4142f0432f49901eb63e0fbccb6, type: 3}
       propertyPath: m_Name
       value: BossSpritesController

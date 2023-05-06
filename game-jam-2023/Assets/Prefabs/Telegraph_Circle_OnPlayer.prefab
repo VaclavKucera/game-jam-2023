@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4540771480139324689}
-  - component: {fileID: 6055929659745053201}
+  - component: {fileID: 555001516713359049}
   m_Layer: 0
-  m_Name: Telegraph_Circle
+  m_Name: Telegraph_Circle_OnPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6055929659745053201
+--- !u!114 &555001516713359049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3455357778501600759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30b5b592c4efd0140a7b15a03b164b90, type: 3}
+  m_Script: {fileID: 11500000, guid: 09dc97887c35a54418b42249ef8d85ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeToFill: 1
-  Player: {fileID: 0}
   fillerCircle: {fileID: 559383746958620425}
+  Player: {fileID: 0}
 --- !u!1 &8740508498435559637
 GameObject:
   m_ObjectHideFlags: 0

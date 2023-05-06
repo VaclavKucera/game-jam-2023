@@ -199,6 +199,7 @@ public class BossController : MonoBehaviour
     {
         if (isAbleToAutoAttack && !isAttacking)
         {
+            isAttacking = true;
             Mechanics.AutoAttack();
         }
 

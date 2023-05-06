@@ -8,6 +8,7 @@ using static BossController;
 public class Mechanics : MonoBehaviour
 {
     public BossController BossController;
+    public BossMainAnimator mainAnimator;
     public GameObject TotemPrefab;
     public GameObject MinionPrefab;
 
@@ -46,7 +47,8 @@ public class Mechanics : MonoBehaviour
     }
     private void QueueNextAuto()
     {
-        if (nextAutoAttack == AutoAttackTypes.Special)
+        //TODO: add all available autos
+        if (nextAutoAttack == AutoAttackTypes.GroundPound)
         {
             nextAutoAttack = 0;
         }
@@ -55,20 +57,32 @@ public class Mechanics : MonoBehaviour
 
     public void SummonTotems()
     {
+        BossController.isAttacking = true;
+        StartCoroutine(SummonTotemsCoroutine());
         //place 3 turrets that can be destroyed with Slam attacks
+    }
+    IEnumerator SummonTotemsCoroutine()
+    {
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        yield return new WaitForSeconds(2);
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        yield return new WaitForSeconds(2);
         Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        yield return new WaitForSeconds(2);
+        BossController.onAutoattackAnimationComplete();
     }
 
     public void Slam()
     {
-        // 3 consecutive slam animations; basic attack
+        BossController.isAttacking = true;
+        mainAnimator.SlamAttack();
     }
     
     public void GroundPound()
     {
-        //two points producing shockwaves
+        var left = RandomGeneration.RandomPosition();
+        var right = RandomGeneration.RandomPosition();
+        mainAnimator.GroundPoundAttack(left, right);
     }
 
     public void Hurricane()
