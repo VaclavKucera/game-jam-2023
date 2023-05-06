@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -17,11 +18,16 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        BossController boss = collision.collider.GetComponentInChildren<BossController>();
-        if (boss != null)
+        if (collision.collider.gameObject.CompareTag("Boss"))
         {
+            var boss = collision.collider.gameObject.transform.parent.GetComponentInChildren<BossController>();
             Debug.Log("Boss hit");
             boss.takeDamage(damage);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Arena"))
+        {
+            Debug.Log("Wall hit");
             Destroy(gameObject);
         }
     }
