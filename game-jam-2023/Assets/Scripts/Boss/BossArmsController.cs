@@ -12,7 +12,8 @@ public class BossArmsController : MonoBehaviour
     public GameObject player;
 
     // TODO: Might wanna take this from some other common place
-    private float midArmAimDuration = 0.3f;
+    private float midArmSnapDuration = 0.3f;
+    private float midArmAimDuration = 2f;
     private float midArmTopDelay = 3f;
     private float midArmAttackDuration = 0.03f;
     private float midArmWaitCooldown = 1f;
@@ -21,6 +22,8 @@ public class BossArmsController : MonoBehaviour
     private float sideArmTopDelay = 3f;
     private float sideArmAttackDuration = 0.03f;
     private float sideArmWaitCooldown = 1f;
+
+    private FistHeight fistHeight = FistHeight.Mid;
 
     private GameObject leftArm;
     private GameObject rightArm;
@@ -42,55 +45,21 @@ public class BossArmsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Temporary key-based position setting
-        // if (Input.GetKeyDown(KeyCode.D))
-        // {
-        //     SetArmPositionType(ArmPositionType.Default);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.S))
-        // {
-        //     SetArmPositionType(ArmPositionType.SideSlam);
-        // }
-        // else if (Input.GetKeyDown(KeyCode.M))
-        // {
-        //     SetArmPositionType(ArmPositionType.MidSlam);
-        // }
         if (Input.GetKeyDown(KeyCode.L)) {
             StartCoroutine(MidSlamSequence());
-        }
-
-        // Trigger RunSideSlamAnimation when a mouse button is clicked
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (Input.GetMouseButtonDown(0)) {
-                RunMidSlamAnimation(mousePosition);
-            } else {
-                RunSideSlamAnimation(mousePosition, new Vector2(10, 0));
-            }
+        } else if (Input.GetKeyDown(KeyCode.K)) {
+            StartCoroutine(SideSlamSequence(new Vector2(-10, -10), new Vector2(10, 0)));
         }
     }
 
     public void RunSideSlamAnimation(Vector2 leftPoint, Vector2 rightPoint)
     {
-        SetArmPositionType(ArmPositionType.SideSlam);
-        StartCoroutine(PointArmAtPosition(leftArm, leftPoint));
-        StartCoroutine(PointArmAtPosition(rightArm, rightPoint));
-
-        float leftArmAngle = CalculateTargetAngle(transform.position, leftPoint);
-        float rightArmAngle = CalculateTargetAngle(transform.position, rightPoint);
-        float lookAtAngle = (leftArmAngle + rightArmAngle) / 2 + 90;
-        bossMainAnimator.LookAtAngle(lookAtAngle);
+        StartCoroutine(SideSlamSequence(leftPoint, rightPoint));
     }
 
-    public void RunMidSlamAnimation(Vector2 point)
+    public void RunMidSlamAnimation()
     {
-        SetArmPositionType(ArmPositionType.MidSlam);
-        StartCoroutine(PointArmAtPosition(leftArm, point));
-        StartCoroutine(PointArmAtPosition(rightArm, point));
-
-        float angle = CalculateTargetAngle(transform.position, point) + 90;
-        bossMainAnimator.LookAtAngle(angle);
+        StartCoroutine(MidSlamSequence());
     }
 
     public void ResetToDefaultPosition() {
@@ -199,6 +168,8 @@ public class BossArmsController : MonoBehaviour
     }
 
     private void SetFistHeight(FistHeight height) {
+        this.fistHeight = height;
+
         var leftFist = leftArmOffsetContainer.transform.GetChild(1).gameObject;
         var rightFist = rightArmOffsetContainer.transform.GetChild(1).gameObject;
 
@@ -211,11 +182,83 @@ public class BossArmsController : MonoBehaviour
     }
 
     private IEnumerator MidSlamSequence() {
-        this.armMoveDuration = this.midArmAimDuration;
+        this.armMoveDuration = this.midArmSnapDuration;
+        SetArmPositionType(ArmPositionType.MidSlam);
 
+        // Snap animation for locking onto player
         var playerPosition = player.transform.position;
-        RunMidSlamAnimation(playerPosition);
+        StartCoroutine(PointArmAtPosition(leftArm, playerPosition));
+        StartCoroutine(PointArmAtPosition(rightArm, playerPosition));
 
-        yield return new WaitForSeconds(this.midArmAimDuration);
+        float angle = CalculateTargetAngle(transform.position, playerPosition) + 90;
+        bossMainAnimator.LookAtAngle(angle);
+
+        yield return new WaitForSeconds(this.midArmSnapDuration);
+
+        // Keep following player for a certain duration
+        float elapsedTime = 0;
+        while (elapsedTime < this.midArmAimDuration) {
+            elapsedTime += Time.deltaTime;
+            playerPosition = player.transform.position;
+            angle = CalculateTargetAngle(transform.position, playerPosition) + 90;
+            leftArm.transform.rotation = CalculateTargetRotation(leftArm.transform.position, playerPosition);
+            rightArm.transform.rotation = CalculateTargetRotation(rightArm.transform.position, playerPosition);
+
+            if (elapsedTime > this.midArmSnapDuration / 2 && this.fistHeight != FistHeight.Mid) {
+                SetFistHeight(FistHeight.Mid);
+            }
+
+            bossMainAnimator.LookAtAngle(angle);
+
+            yield return null;
+        }
+
+        // Wait until slam
+        SetFistHeight(FistHeight.Top);
+        yield return new WaitForSeconds(this.midArmTopDelay);
+
+        // Slam down
+        SetFistHeight(FistHeight.Mid);
+        yield return new WaitForSeconds(this.midArmAttackDuration);
+        SetFistHeight(FistHeight.Bottom);
+
+        // Wait and return to default
+        yield return new WaitForSeconds(this.midArmWaitCooldown);
+        SetFistHeight(FistHeight.Mid);
+        SetArmPositionType(ArmPositionType.Default);
+    }
+
+    private IEnumerator SideSlamSequence(Vector2 leftPoint, Vector2 rightPoint) {
+        SetArmPositionType(ArmPositionType.SideSlam);
+        SetFistHeight(FistHeight.Bottom);
+
+        // Animate to provided points
+        this.armMoveDuration = this.sideArmAimDuration;
+        StartCoroutine(PointArmAtPosition(leftArm, leftPoint));
+        StartCoroutine(PointArmAtPosition(rightArm, rightPoint));
+
+        float leftArmAngle = CalculateTargetAngle(transform.position, leftPoint);
+        float rightArmAngle = CalculateTargetAngle(transform.position, rightPoint);
+        float lookAtAngle = (leftArmAngle + rightArmAngle) / 2 + 90;
+        bossMainAnimator.LookAtAngle(lookAtAngle);
+
+        // Raise fists mid animation
+        yield return new WaitForSeconds(this.sideArmAimDuration / 2);
+        SetFistHeight(FistHeight.Mid);
+        yield return new WaitForSeconds(this.sideArmAimDuration / 2);
+        SetFistHeight(FistHeight.Top);
+
+        // Wait until slam
+        yield return new WaitForSeconds(this.sideArmTopDelay);
+
+        // Slam down
+        SetFistHeight(FistHeight.Mid);
+        yield return new WaitForSeconds(this.sideArmAttackDuration);
+        SetFistHeight(FistHeight.Bottom);
+
+        // Cooldown and reset
+        yield return new WaitForSeconds(this.sideArmWaitCooldown);
+        SetFistHeight(FistHeight.Mid);
+        SetArmPositionType(ArmPositionType.Default);
     }
 }
