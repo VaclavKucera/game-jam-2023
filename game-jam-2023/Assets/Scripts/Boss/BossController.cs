@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossController : MonoBehaviour
@@ -27,7 +28,9 @@ public class BossController : MonoBehaviour
     public const int totalHealth = 40000;
     
     
-    protected bool isAbleToAutoAttack = true;
+    public bool isAbleToAutoAttack = true;
+    public bool isAttacking = false;
+
     protected float tetherTimer;
     protected float runesTimer;
     protected bool isVulnerable = false;
@@ -50,7 +53,7 @@ public class BossController : MonoBehaviour
 
     public Breakpoints breakpoints;
 
-
+    #region hp_breakpoints
     private const int hp_75 = totalHealth / 100 * 75;
     private const int hp_66 = totalHealth / 100 * 66;
     private const int hp_50 = totalHealth / 100 * 50;
@@ -61,6 +64,7 @@ public class BossController : MonoBehaviour
     private const int hp_20 = totalHealth / 100 * 20;
     private const int hp_10 = totalHealth / 100 * 10; 
     private const int hp_0 = 0;
+    #endregion
 
     public void EnableAutoAttack()
     {
@@ -185,9 +189,19 @@ public class BossController : MonoBehaviour
         runesTimer = tetherTimer;
     }
 
+    public void onAutoattackAnimationComplete()
+    {
+        Mechanics.AutoAttack();
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (isAbleToAutoAttack && !isAttacking)
+        {
+            Mechanics.AutoAttack();
+        }
+
         if (Time.time - tetherTimer >= tetherCooldown)
         {
             Mechanics.Tether();
