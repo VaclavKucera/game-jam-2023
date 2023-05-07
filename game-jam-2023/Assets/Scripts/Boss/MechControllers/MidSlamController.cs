@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class MidSlamController : MonoBehaviour
 {
+    public float damageOnHit = 5f;
+
     private BossSpritesController bossSpritesController;
     private BossController bossController;
     private GameObject player;
+    private GameObject sectorHighlight;
+    private PolygonCollider2D sectorCollider;
 
     private float midArmSnapDuration = 1f;
     private float midArmAimDuration = 2f;
@@ -19,12 +23,14 @@ public class MidSlamController : MonoBehaviour
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
         bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
         player = GameObject.FindGameObjectWithTag("Player").gameObject;
+        sectorHighlight = gameObject.transform.GetChild(0).gameObject;
+        sectorCollider = gameObject.GetComponent<PolygonCollider2D>();
 
         var mechanics = bossController.Mechanics;
 
         midArmSnapDuration = mechanics.SlamWindUpDuration * 0.3f;
         midArmAimDuration = mechanics.SlamWindUpDuration * 0.7f;
-        midArmTopDelay = mechanics.SlamWindUpDuration * 0.2f;
+        midArmTopDelay = mechanics.SlamWindUpDuration * 0.5f;
         midArmAttackDuration = mechanics.SlamDuration;
         midArmWaitCooldown = mechanics.SlamAftercast;
     }
@@ -89,15 +95,43 @@ public class MidSlamController : MonoBehaviour
 
         // Wait until slam
         bossSpritesController.SetFistHeight(BossSpritesController.FistHeight.Top);
+
+        float clampedAngle = (angle + 36 + 360) % 360;
+        float pentagonAngle = 0;
+        if (clampedAngle > 0 && clampedAngle < 72) {
+            pentagonAngle = 0;
+        } else if (clampedAngle > 72 && clampedAngle < 144) {
+            pentagonAngle = 72;
+        } else if (clampedAngle > 144 && clampedAngle < 216) {
+            pentagonAngle = 144;
+        } else if (clampedAngle > 216 && clampedAngle < 288) {
+            pentagonAngle = 216;
+        } else if (clampedAngle > 288 && clampedAngle < 360) {
+            pentagonAngle = 288;
+        }
+
+        sectorHighlight.SetActive(true);
+        transform.rotation = Quaternion.Euler(0, 0, pentagonAngle + 72 * 3);
+
         yield return new WaitForSeconds(this.midArmTopDelay);
 
         // Slam down
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.SetActive(true);
         bossSpritesController.SetFistHeight(BossSpritesController.FistHeight.Mid);
         yield return new WaitForSeconds(this.midArmAttackDuration);
         bossSpritesController.SetFistHeight(BossSpritesController.FistHeight.Bottom);
 
+        // Check if player is in sector
+        if (sectorCollider.IsTouching(player.GetComponent<CircleCollider2D>())) {
+            player.GetComponent<PlayerController>().TakeDamage(damageOnHit);
+        }
+
         // Wait cooldown
         yield return new WaitForSeconds(this.midArmWaitCooldown);
+        sectorHighlight.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
         bossSpritesController.SetIdleMovement(true);
     }
 }
