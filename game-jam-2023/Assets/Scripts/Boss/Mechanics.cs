@@ -117,15 +117,19 @@ public class Mechanics : MonoBehaviour
     #region Special Attacks
 
     //bullet hell mech
-    public void Cataclysm()
+    public IEnumerator Cataclysm()
     {
         Debug.Log("Cataclysm");
         // Cracks connect
 
         // Shoots 3x3
-        StartCoroutine(CataclysmBullets(180));
-        StartCoroutine(CataclysmBullets(90));
-        StartCoroutine(CataclysmBullets(-90));
+        var offset = 36f;
+        var pentagonAngle = 72f;
+
+        for (int i = 0; i <= 4; i++)
+        {
+            yield return StartCoroutine(CataclysmBullets(offset + i * pentagonAngle));
+        }
 
         // Beam attack
     }
