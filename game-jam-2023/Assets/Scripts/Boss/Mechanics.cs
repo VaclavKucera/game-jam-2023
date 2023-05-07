@@ -10,11 +10,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Mechanics : MonoBehaviour
 {
-    public BossController BossController;
-    public BossMainAnimator mainAnimator;
-    public GameObject TotemPrefab;
-    public GameObject SoulPrefab;
-    public GameObject BulletPrefab;
+    public BossController bossController;
 
     [Header("Configuration")]
     public float SlamWindUpDuration = 1f;
@@ -25,20 +21,33 @@ public class Mechanics : MonoBehaviour
     public float PoundAttackDuration = 0.05f;
     public float PoundAftercast = 1.5f;
 
+    [Header("Mechanic controllers")]
+    public CascadeController cascadeController;
+    public MidSlamController midSlamController;
+    public SideSlamController sideSlamController;
+    public SummonTotemsController summonTotemsController;
+    public HurricaneController hurricaneController;
+    public CataclysmController cataclysmController;
+    public SoulFeastController soulFeastController;
 
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
     private AutoAttackTypes nextAutoAttack = 0;
     private Transform player;
 
-    public void Start()
-    {
+    void Start() {
+        if (bossController == null)
+            bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+        else
+            bossController = bossController.GetComponent<BossController>();
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    #region Basic Attacks
     public void AutoAttack()
     {
+        bossController.isAttacking = true;
+
         Debug.Log("Auto-attack started: " + nextAutoAttack);
         switch (nextAutoAttack)
         {
@@ -47,21 +56,17 @@ public class Mechanics : MonoBehaviour
             case AutoAttackTypes.GroundPound: GroundPound(); break;
             case AutoAttackTypes.Hurricane: Hurricane(); break;
             case AutoAttackTypes.Special:
-                /* if (AASpecial_iterator)
-                 {
-                     Cataclysm();
-                     AASpecial_iterator = false;
-                 }
-                 else*/
-                {
+                if (AASpecial_iterator)
+                    Cataclysm();
+                else
                     SoulFeast();
-                    AASpecial_iterator = true;
-                }
+                AASpecial_iterator = !AASpecial_iterator;
                 break;
         }
         Debug.Log("We should still have: " + nextAutoAttack);
         QueueNextAuto();
     }
+
     private void QueueNextAuto()
     {
         //TODO: add all available autos
@@ -76,139 +81,81 @@ public class Mechanics : MonoBehaviour
         else nextAutoAttack++;
     }
 
+    #region Basic Attacks
     public void SummonTotems()
     {
-        Debug.Log("Summon start");
-        StartCoroutine(SummonTotemsCoroutine());
-        Debug.Log("Summon end");
-        //place 3 turrets that can be destroyed with Slam attacks
+        summonTotemsController.Execute();
     }
-    IEnumerator SummonTotemsCoroutine()
+    public void OnSummonTotemsComplete()
     {
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        BossController.onAutoattackAnimationComplete();
-        Debug.Log("End of Totem Coro");
+        bossController.isAttacking = false;
     }
 
     public void Slam()
     {
-        BossController.isAttacking = true;
-        mainAnimator.SlamAttack(3);
+        midSlamController.Execute();
     }
-    
+    public void OnSlamComplete()
+    {
+        bossController.isAttacking = false;
+    }
+
     public void GroundPound()
     {
-        var left = RandomGeneration.RandomPosition();
-        var right = RandomGeneration.RandomPosition();
-        mainAnimator.GroundPoundAttack(left, right);
+        sideSlamController.Execute();
+    }
+    public void OnGroundPoundComplete()
+    {
+        bossController.isAttacking = false;
     }
 
     public void Hurricane()
     {
-        //3 circular patterns
+        Debug.Log("Hurricane start");
+        hurricaneController.Execute();
+        Debug.Log("Hurricane end");
     }
+    public void OnHurricaneComplete()
+    {
+        Debug.Log("Hurricane End - async, executing next attack");
+        bossController.isAttacking = false;
+    }
+
     #endregion
 
     #region Special Attacks
 
-    //bullet hell mech
-    public IEnumerator Cataclysm()
+    public void Cataclysm()
     {
-        Debug.Log("Cataclysm");
-        // Cracks connect
-
-        // Shoots 3x3
-        var offset = 36f;
-        var pentagonAngle = 72f;
-
-        for (int i = 0; i <= 4; i++)
-        {
-            yield return StartCoroutine(CataclysmBullets(offset + i * pentagonAngle));
-        }
-
-        // Beam attack
+        cataclysmController.Execute();
     }
-
-    private void FollowPlayer()
+    public void OnCataclysmComplete()
     {
-        Vector3 direction = player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
-    }
-
-    private IEnumerator CataclysmBullets(float angle)
-    {
-        Debug.Log("Cataclysm bullets");
-        yield return TripleBullet(angle);
-        yield return new WaitForSeconds(1f);
-        yield return TripleBullet(angle);
-        yield return new WaitForSeconds(1f);
-        yield return TripleBullet(angle);
-    }
-
-    public IEnumerator TripleBullet(float angle)
-    {
-        Debug.Log($"Triple bullet {angle}");
-        var position = transform.position;
-        var start = position + Vector3.up;
-
-        var shiftedPoint = start - position;
-        var rotation = Quaternion.Euler(Vector3.forward * angle);
-        shiftedPoint = rotation * shiftedPoint;
-        var rotatedPoint = shiftedPoint + position;
-
-        var spread = 20f;
-        var angle1 = Quaternion.AngleAxis(angle + spread, Vector3.forward);
-        var angle2 = Quaternion.AngleAxis(angle, Vector3.forward);
-        var angle3 = Quaternion.AngleAxis(angle - spread, Vector3.forward);
-
-
-        Instantiate(BulletPrefab, rotatedPoint, angle1);
-        Instantiate(BulletPrefab, rotatedPoint, angle2);
-        Instantiate(BulletPrefab, rotatedPoint, angle3);
-
-        yield return null;
+        bossController.isAttacking = false;
     }
 
     public void SoulFeast()
     {
-        Debug.Log("SoulFeast start");
-        BossController.isAbleToAutoAttack = false;
-        StartCoroutine(SpawnSouls());
-        Debug.Log("SoulFeast end");
+        soulFeastController.Execute();
+    }
+    public void OnSoulFeastComplete()
+    {
+        bossController.isAttacking = false;
     }
 
-    IEnumerator SpawnSouls()
-    {
-        for (var c = 0; c < 15; c++)
-        {
-            var interval = RandomGeneration.RandomInterval(0.5f, 7.5f);
-            Invoke(nameof(SpawnSoul), interval);
-            yield return null;
-        }
-        yield return new WaitForSeconds(10);
-        BossController.isAbleToAutoAttack = true;
-        BossController.onAutoattackAnimationComplete();
-        Debug.Log("All Souls spawned");
-    }
-    void SpawnSoul()
-    {
-        Instantiate(SoulPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-    }
-#endregion
+    #endregion
 
-#region HP Based Attacks
+    #region HP Based Attacks
 
-public void Cascade()
+    public void Cascade()
     {
-        //spawn cascade
+        Debug.Log("Cascade start");
+        cascadeController.Execute();
+        Debug.Log("Cascade end");
+    }
+    public void OnCascadeComplete()
+    {
+        Debug.Log("Cascade End - async");
     }
 
     public void Sacrifice()

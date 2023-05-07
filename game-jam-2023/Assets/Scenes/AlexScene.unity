@@ -988,7 +988,7 @@ GameObject:
   - component: {fileID: 897512906}
   m_Layer: 0
   m_Name: Rings
-  m_TagString: Boss
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2303,6 +2303,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossController: {fileID: 0}
+  MinionPrefab: {fileID: 4915103548232353350, guid: 2fcbc08faff568746b48d112e314733e, type: 3}
+  BulletPrefab: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
   SlamWindUpDuration: 1
   SlamDuration: 0.03
   SlamAftercast: 0.5
@@ -2310,7 +2312,7 @@ MonoBehaviour:
   PoundAttackDuration: 0.05
   PoundAftercast: 1.5
   cascadeController: {fileID: 1847554090}
-  midSlamController: {fileID: 1912850172604473392}
+  midSlamController: {fileID: 2111028302}
   sideSlamController: {fileID: 658459769}
   summonTotemsController: {fileID: 744069105}
   hurricaneController: {fileID: 1721418422}
@@ -2725,6 +2727,17 @@ Transform:
   m_Father: {fileID: 1535925154}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2111028302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3275770535683603706, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
+  m_PrefabInstance: {fileID: 1912850172604473391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9931deab44b28404092bb1ed54955357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &409908035794491266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2794,14 +2807,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1182766377}
     m_Modifications:
-    - target: {fileID: 2880356686748349645, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
-      propertyPath: SoulPrefab
-      value: 
-      objectReference: {fileID: 4915103548232353350, guid: 4ec9b4c4bb428ec4ab026e44f98cab86, type: 3}
-    - target: {fileID: 3409975628159875050, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
-      propertyPath: BulletPrefab
-      value: 
-      objectReference: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
     - target: {fileID: 3937803252223801388, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2855,17 +2860,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
---- !u!114 &1912850172604473392 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3275770535683603706, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
-  m_PrefabInstance: {fileID: 1912850172604473391}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9931deab44b28404092bb1ed54955357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3946587257130309743
 PrefabInstance:
   m_ObjectHideFlags: 0
