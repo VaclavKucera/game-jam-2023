@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            var minion = collision.collider.gameObject.GetComponentInChildren<MinionController>();
+            var minion = collision.collider.gameObject.GetComponentInChildren<SoulController>();
             if (minion != null)
             {
                 minion.takeDamage(damage);

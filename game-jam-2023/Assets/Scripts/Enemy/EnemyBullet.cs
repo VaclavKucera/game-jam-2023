@@ -18,6 +18,8 @@ public class EnemyBullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (speed == 1) Debug.Log($"Bullet collision tag {collision.gameObject.tag}");
+
         if (collision.gameObject.CompareTag("Player"))
         {
             var player = collision.collider.gameObject.GetComponentInChildren<PlayerController>();
