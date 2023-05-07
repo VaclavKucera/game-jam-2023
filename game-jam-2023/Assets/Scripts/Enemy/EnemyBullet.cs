@@ -21,23 +21,19 @@ public class EnemyBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             var player = collision.collider.gameObject.GetComponentInChildren<PlayerController>();
-            Debug.Log("Player hit");
             player.TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Arena"))
         {
-            //Debug.Log("Enemy bullet wall hit");
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            //Debug.Log("Enemy bullet enemy hit");
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Boss"))
         {
-            //Debug.Log("Enemy bullet boss hit");
             Destroy(gameObject);
         }
     }

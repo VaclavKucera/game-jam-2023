@@ -11,6 +11,7 @@ public class Mechanics : MonoBehaviour
     public BossMainAnimator mainAnimator;
     public GameObject TotemPrefab;
     public GameObject MinionPrefab;
+    public GameObject BulletPrefab;
 
 
     private bool AASpecial_iterator = true;
@@ -93,10 +94,31 @@ public class Mechanics : MonoBehaviour
     #endregion
 
     #region Special Attacks
-    
+
+    //bullet hell mech
     public void Cataclysm()
     {
-        //bullet hell mech
+        Debug.Log("Cataclysm start");
+        // Cracks connect
+
+        // Shoots 3x3
+        // Turn to player
+        // 3x coroutine
+        StartCoroutine(TripleBullet());
+
+        // Beam attack
+    }
+
+    public IEnumerator TripleBullet()
+    {
+        var spread = Quaternion.AngleAxis(10, transform.position);
+        var spread2 = Quaternion.AngleAxis(-10, transform.position);
+
+        Instantiate(BulletPrefab, transform.position, transform.rotation * spread);
+        Instantiate(BulletPrefab, transform.position, transform.rotation);
+        Instantiate(BulletPrefab, transform.position, transform.rotation * spread2);
+
+        yield return null;
     }
 
     public void SoulFeast()
