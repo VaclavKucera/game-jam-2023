@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +11,7 @@ public class RunesController : TelegraphController
     public bool isActive = false;
 
     public PlayerController player;
-    BossController bossController;
+    public BossController bossController;
 
     private void Start()
     {
@@ -27,9 +28,12 @@ public class RunesController : TelegraphController
             player.TakeDamage(damage);
             Destroy(this.gameObject);
 
-            if (Vector2.Distance(transform.position, Vector2.zero) <= (0.5 + 0.9))
+            if (Math.Abs(gameObject.transform.position.x) <= (0.5f + 0.9f) &&
+                Math.Abs(gameObject.transform.position.y) <= (0.5f + 0.9f)
+                )
             {
-                bossController.takeDamage(damage * 10);
+                bossController.takeDamage(damage * 20);
+                Debug.Log("BOSS GOT SLAPPADOODLED LMAO");
             }
         }
     }

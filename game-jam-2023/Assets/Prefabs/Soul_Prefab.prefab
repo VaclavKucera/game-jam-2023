@@ -165,4 +165,4 @@ MonoBehaviour:
   player: {fileID: 0}
   boss: {fileID: 0}
   speed: 0.5
-  totalHealth: 450
+  totalHealth: 300
