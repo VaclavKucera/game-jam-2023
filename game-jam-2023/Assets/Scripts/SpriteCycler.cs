@@ -6,6 +6,7 @@ public class SpriteCycler : MonoBehaviour
 {
     public float FPS;
     public bool active;
+    public bool paused = false;
 
     private List<GameObject> childObjects;
     private float timer;
@@ -34,9 +35,14 @@ public class SpriteCycler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+        if (paused)
+        {
+            return;
+        }
+
         if (active && childObjects.Count > 0)
         {
-            timer += Time.deltaTime;
             if (timer >= 1 / FPS)
             {
                 timer = 0;

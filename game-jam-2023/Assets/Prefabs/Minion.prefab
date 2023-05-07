@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.19607839, g: 0.22272192, b: 0.9607843, a: 1}
+  m_Sprite: {fileID: 8596640243658272642, guid: bed1b1eecdbea44ec898ef2c9167cd8e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -165,3 +165,4 @@ MonoBehaviour:
   player: {fileID: 0}
   boss: {fileID: 0}
   speed: 0.5
+  totalHealth: 100
