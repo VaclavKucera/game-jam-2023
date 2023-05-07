@@ -21,14 +21,15 @@ public class CataclysmController : MonoBehaviour
         // Cracks connect
 
         // Shoots 3x3
-        StartCoroutine(CataclysmBullets(180));
-        StartCoroutine(CataclysmBullets(90));
-        StartCoroutine(CataclysmBullets(-90));
+        var offset = 36f;
+        var pentagonAngle = 72f;
+
+        for (int i = 0; i <= 4; i++)
+        {
+            yield return StartCoroutine(CataclysmBullets(offset + i * pentagonAngle));
+        }
 
         // Beam attack
-
-        // TODO: Wait for exact time that it takes for the bullets to do stuff.
-        yield return new WaitForSeconds(3f);
         bossController.Mechanics.OnCataclysmComplete();
     }
 
@@ -41,7 +42,7 @@ public class CataclysmController : MonoBehaviour
         yield return TripleBullet(angle);
     }
 
-    public IEnumerator TripleBullet(float angle)
+    private IEnumerator TripleBullet(float angle)
     {
         Debug.Log($"Triple bullet {angle}");
         var position = transform.position;
@@ -63,5 +64,5 @@ public class CataclysmController : MonoBehaviour
         Instantiate(BulletPrefab, rotatedPoint, angle3);
 
         yield return null;
-    }
+    }    
 }

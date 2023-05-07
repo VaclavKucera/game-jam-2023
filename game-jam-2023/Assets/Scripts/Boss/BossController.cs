@@ -190,7 +190,8 @@ public class BossController : MonoBehaviour
     }
 
     void Start() {
-        // Mechanics.SoulFeast(); Mechanics.Cataclysm();
+        // Mechanics.SoulFeast();
+        // Mechanics.Cataclysm();
     }
 
     // Update is called once per frame
