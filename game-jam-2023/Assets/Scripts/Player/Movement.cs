@@ -10,11 +10,11 @@ public class Movement : MonoBehaviour
     public float stamina = 100;
     public float maxStamina = 100;
     public float staminaRegen = 0.5f;
+    public bool dashing;
 
     private float moveInputHorizontal;
     private float moveInputVertical;
     private Rigidbody2D rb;
-    private bool dashing;
     private bool canDash = true;
     private Camera mainCamera;
 
