@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class TelegraphController : MonoBehaviour
 {
-    public float timeToFill = 1f;
+    public float duration = 1f;
+    public float elapsedTime = 0f;
+
     public Transform fillerCircle;
     public Action onCompletion;
 
@@ -16,26 +18,26 @@ public class TelegraphController : MonoBehaviour
 
     public void setTimer(float seconds)
     {
-        timeToFill = seconds;
+        duration = seconds;
     }
 
     public virtual void TriggerEffect()
     {
-        if (onCompletion != null)
+        if (onCompletion != null) {
             onCompletion();
+        }
         GameObject.Destroy(gameObject);
-    }
-
-    private void Start()
-    {
     }
 
     private void Update()
     {
-        if (fillerCircle.localScale == new Vector3(1,1,1))
+        elapsedTime += Time.deltaTime;
+        float progress = elapsedTime / duration;
+        if (progress >= 1f)
         {
             TriggerEffect();
         }
-        fillerCircle.localScale = Vector3.MoveTowards(fillerCircle.localScale, new Vector3(1, 1, 1), timeToFill * Time.deltaTime);
+
+        fillerCircle.localScale = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(1, 1, 1), Mathf.Clamp(progress, 0, 1));
     }
 }

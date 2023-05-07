@@ -3,7 +3,17 @@ guid: abfb9d7dfd688c44a82a0e07bfd538c4
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bossController: {instanceID: 0}
+  - TelegraphOnPlayer: {fileID: 3455357778501600759, guid: aa46d54995c19b748ad1bb2fd2072725, type: 3}
+  - Rune: {fileID: 3455357778501600759, guid: 1718dc4e23af5ac4590e718abcd1969e, type: 3}
+  - cascadeController: {instanceID: 0}
+  - midSlamController: {instanceID: 0}
+  - sideSlamController: {instanceID: 0}
+  - summonTotemsController: {instanceID: 0}
+  - hurricaneController: {instanceID: 0}
+  - cataclysmController: {instanceID: 0}
+  - soulFeastController: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -189,12 +189,11 @@ public class BossController : MonoBehaviour
         runesTimer = tetherTimer;
     }
 
-    public void onAutoattackAnimationComplete()
-    {
-        Mechanics.AutoAttack();
+    void Start() {
+        // isAbleToAutoAttack = false;
+        // Mechanics.Cataclysm();
+        // Mechanics.SoulFeast();
     }
-
-    // void Start() { StartCoroutine(Mechanics.Cataclysm());}
 
     // Update is called once per frame
     void Update()
