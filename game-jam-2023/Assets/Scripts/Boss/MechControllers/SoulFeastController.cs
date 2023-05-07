@@ -20,9 +20,19 @@ public class SoulFeastController : MonoBehaviour
     }
 
     public IEnumerator SoulFeastSequence() {
-        yield return new WaitForSeconds(2.5f);
-
-        Debug.Log("SoulFeast sequence completing;");
+        for (var c = 0; c < 15; c++)
+        {
+            var interval = RandomGeneration.RandomInterval(0.5f, 7.5f);
+            Invoke(nameof(SpawnSoul), interval);
+            yield return null;
+        }
+        yield return new WaitForSeconds(10);
+        Debug.Log("All Souls spawned");
         bossController.Mechanics.OnSoulFeastComplete();
+    }
+
+    void SpawnSoul()
+    {
+        Instantiate(SoulPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
     }
 }
