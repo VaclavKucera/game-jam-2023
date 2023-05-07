@@ -2167,8 +2167,8 @@ MonoBehaviour:
   BossController: {fileID: 1785775813}
   mainAnimator: {fileID: 582051972}
   TotemPrefab: {fileID: 4915103548232353350, guid: d8f4430efb286db4a8d3ac4754c95170, type: 3}
-  MinionPrefab: {fileID: 4915103548232353350, guid: 2fcbc08faff568746b48d112e314733e, type: 3}
-  BulletPrefab: {fileID: 4915103548232353350, guid: b965cffd49866594abd84b1d36dc6423, type: 3}
+  SoulPrefab: {fileID: 4915103548232353350, guid: 4ec9b4c4bb428ec4ab026e44f98cab86, type: 3}
+  BulletPrefab: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
   SlamWindUpDuration: 1
   SlamDuration: 0.03
   SlamAftercast: 0.5

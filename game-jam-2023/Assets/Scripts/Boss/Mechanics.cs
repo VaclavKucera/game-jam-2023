@@ -13,7 +13,7 @@ public class Mechanics : MonoBehaviour
     public BossController BossController;
     public BossMainAnimator mainAnimator;
     public GameObject TotemPrefab;
-    public GameObject MinionPrefab;
+    public GameObject SoulPrefab;
     public GameObject BulletPrefab;
 
     [Header("Configuration")]
@@ -47,12 +47,12 @@ public class Mechanics : MonoBehaviour
             case AutoAttackTypes.GroundPound: GroundPound(); break;
             case AutoAttackTypes.Hurricane: Hurricane(); break;
             case AutoAttackTypes.Special:
-                if (AASpecial_iterator)
-                {
-                    Cataclysm();
-                    AASpecial_iterator = false;
-                }
-                else
+                /* if (AASpecial_iterator)
+                 {
+                     Cataclysm();
+                     AASpecial_iterator = false;
+                 }
+                 else*/
                 {
                     SoulFeast();
                     AASpecial_iterator = true;
@@ -66,6 +66,10 @@ public class Mechanics : MonoBehaviour
     {
         //TODO: add all available autos
         if (nextAutoAttack == AutoAttackTypes.GroundPound)
+        {
+            nextAutoAttack = AutoAttackTypes.Special;
+        }
+        else if (nextAutoAttack == AutoAttackTypes.Special)
         {
             nextAutoAttack = 0;
         }
@@ -170,15 +174,34 @@ public class Mechanics : MonoBehaviour
 
     public void SoulFeast()
     {
-        //spawn adds from the sides of the map crawling to the boss
-        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        Debug.Log("SoulFeast start");
+        BossController.isAbleToAutoAttack = false;
+        StartCoroutine(SpawnSouls());
+        Debug.Log("SoulFeast end");
     }
-    #endregion
 
-    #region HP Based Attacks
+    IEnumerator SpawnSouls()
+    {
+        for (var c = 0; c < 15; c++)
+        {
+            var interval = RandomGeneration.RandomInterval(0.5f, 1.5f);
+            Invoke(nameof(SpawnSoul), interval);
+            yield return null;
+        }
+        yield return new WaitForSeconds(10);
+        BossController.isAbleToAutoAttack = true;
+        BossController.onAutoattackAnimationComplete();
+        Debug.Log("All Souls spawned");
+    }
+    void SpawnSoul()
+    {
+        Instantiate(SoulPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+    }
+#endregion
 
-    public void Cascade()
+#region HP Based Attacks
+
+public void Cascade()
     {
         //spawn cascade
     }
