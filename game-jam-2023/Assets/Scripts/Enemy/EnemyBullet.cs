@@ -36,7 +36,7 @@ public class EnemyBullet : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Boss"))
         {
-            // Ignore
+            Destroy(gameObject);
         }
     }
 }

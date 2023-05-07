@@ -184,7 +184,7 @@ public class Mechanics : MonoBehaviour
     {
         for (var c = 0; c < 15; c++)
         {
-            var interval = RandomGeneration.RandomInterval(0.5f, 1.5f);
+            var interval = RandomGeneration.RandomInterval(0.5f, 7.5f);
             Invoke(nameof(SpawnSoul), interval);
             yield return null;
         }
