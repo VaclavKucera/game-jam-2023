@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
@@ -93,6 +94,11 @@ public class BossController : MonoBehaviour
             int prevHealth = currentHealth;
             currentHealth -= damage;
             checkBreakpoints(prevHealth);
+        }
+
+        if (totalHealth <= 0)
+        {
+            SceneManager.LoadScene("Scenes/Win");
         }
     }
 
