@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+public class BossBullet : MonoBehaviour
 {
-    public float speed = 20f;
+    public float speed = 1f;
     public int damage = 10;
 
     private Rigidbody2D rb;
@@ -29,10 +29,6 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Boss"))
         {
             Destroy(gameObject);
         }

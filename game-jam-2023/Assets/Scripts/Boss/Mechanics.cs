@@ -151,6 +151,7 @@ public class Mechanics : MonoBehaviour
 
     public IEnumerator TripleBullet(float angle)
     {
+        Debug.Log($"Triple bullet {angle}");
         var position = transform.position;
         var start = position + Vector3.up;
 
