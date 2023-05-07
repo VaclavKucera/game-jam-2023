@@ -165,4 +165,4 @@ MonoBehaviour:
   player: {fileID: 0}
   bulletPrefab: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
   totalHealth: 100
-  fireRate: 2
+  fireRate: 0.5

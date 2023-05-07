@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  damage: 150
+  damage: 75
 --- !u!58 &-8665431109952466621
 CircleCollider2D:
   m_ObjectHideFlags: 0
