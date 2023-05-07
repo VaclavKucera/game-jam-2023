@@ -87,4 +87,9 @@ public class Movement : MonoBehaviour
         var angle = Mathf.Atan2(mousePosition.y - position.y, mousePosition.x - position.x) * Mathf.Rad2Deg;
         rb.rotation = angle - 90;
     }
+
+    public bool IsDashing()
+    {
+        return dashing;
+    }
 }
