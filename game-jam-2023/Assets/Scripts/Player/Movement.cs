@@ -46,6 +46,15 @@ public class Movement : MonoBehaviour
 
         rb.velocity = new Vector2(moveInputHorizontal * speed, moveInputVertical * speed);
         UpdateRotation();
+
+        if (rb.velocity.magnitude > 0)
+        {
+            transform.GetChild(1).gameObject.GetComponent<SpriteCycler>().paused = false;
+        }
+        else
+        {
+            transform.GetChild(1).gameObject.GetComponent<SpriteCycler>().paused = true;
+        }
     }
 
     private IEnumerator Dash()

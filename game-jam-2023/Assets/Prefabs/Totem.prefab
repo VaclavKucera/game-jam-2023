@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.27680627, g: 0.9607843, b: 0.19607839, a: 1}
+  m_Sprite: {fileID: -539579915749326718, guid: 1a723a845a2a147d6afc37090c6283cd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -164,4 +164,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   bulletPrefab: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
+  totalHealth: 100
   fireRate: 2
