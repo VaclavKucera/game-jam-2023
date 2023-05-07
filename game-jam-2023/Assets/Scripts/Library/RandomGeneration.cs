@@ -21,5 +21,10 @@ namespace Library
 
             return new Vector2(x * signX, y * signY);
         }
+
+        public static float RandomInterval(float min, float max)
+        {
+            return Random.Range(min, max);
+        }
     }
 }

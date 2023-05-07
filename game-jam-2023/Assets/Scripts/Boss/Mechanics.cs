@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Library;
 using UnityEngine;
 using static BossController;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class Mechanics : MonoBehaviour
 {
     public BossController bossController;
 
     public GameObject MinionPrefab;
+    public GameObject SoulPrefab;
     public GameObject BulletPrefab;
 
     [Header("Configuration")]
@@ -33,12 +37,15 @@ public class Mechanics : MonoBehaviour
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
     private AutoAttackTypes nextAutoAttack = 0;
+    private Transform player;
 
     void Start() {
         if (bossController == null)
             bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
         else
             bossController = bossController.GetComponent<BossController>();
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public void AutoAttack()
@@ -68,6 +75,10 @@ public class Mechanics : MonoBehaviour
     {
         //TODO: add all available autos
         if (nextAutoAttack == AutoAttackTypes.GroundPound)
+        {
+            nextAutoAttack = AutoAttackTypes.Special;
+        }
+        else if (nextAutoAttack == AutoAttackTypes.Special)
         {
             nextAutoAttack = 0;
         }
@@ -120,60 +131,22 @@ public class Mechanics : MonoBehaviour
 
     public void Cataclysm()
     {
-        Debug.Log("Cataclysm start");
         cataclysmController.Execute();
-        Debug.Log("Cataclysm end");
     }
     public void OnCataclysmComplete()
     {
-        Debug.Log("Cataclysm End - async, executing next attack");
         bossController.isAttacking = false;
     }
 
     public void SoulFeast()
     {
-        Debug.Log("SoulFeast start");
         soulFeastController.Execute();
-        Debug.Log("SoulFeast end");
     }
     public void OnSoulFeastComplete()
     {
-        Debug.Log("SoulFeast End - async, executing next attack");
         bossController.isAttacking = false;
     }
 
-    //bullet hell mech
-    // public void Cataclysm()
-    // {
-    //     Debug.Log("Cataclysm start");
-    //     // Cracks connect
-
-    //     // Shoots 3x3
-    //     // Turn to player
-    //     // 3x coroutine
-    //     StartCoroutine(TripleBullet());
-
-    //     // Beam attack
-    // }
-
-    // public IEnumerator TripleBullet()
-    // {
-    //     var spread = Quaternion.AngleAxis(10, transform.position);
-    //     var spread2 = Quaternion.AngleAxis(-10, transform.position);
-
-    //     Instantiate(BulletPrefab, transform.position, transform.rotation * spread);
-    //     Instantiate(BulletPrefab, transform.position, transform.rotation);
-    //     Instantiate(BulletPrefab, transform.position, transform.rotation * spread2);
-
-    //     yield return null;
-    // }
-
-    // public void SoulFeast()
-    // {
-    //     //spawn adds from the sides of the map crawling to the boss
-    //     Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-    //     Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-    // }
     #endregion
 
     #region HP Based Attacks

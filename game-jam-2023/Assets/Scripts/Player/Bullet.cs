@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 20f;
-    public int damage = 10;
+    public float speed = 10f;
+    public int damage = 150;
 
     private Rigidbody2D rb;
 
@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Enemy"))
         {
-            var minion = collision.collider.gameObject.GetComponentInChildren<MinionController>();
+            var minion = collision.collider.gameObject.GetComponentInChildren<SoulController>();
             if (minion != null)
             {
                 minion.takeDamage(damage);
