@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Library;
 using UnityEngine;
 using static BossController;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class Mechanics : MonoBehaviour
 {
@@ -28,7 +31,12 @@ public class Mechanics : MonoBehaviour
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
     private AutoAttackTypes nextAutoAttack = 0;
+    private Transform player;
 
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     #region Basic Attacks
     public void AutoAttack()
@@ -111,27 +119,62 @@ public class Mechanics : MonoBehaviour
     #region Special Attacks
 
     //bullet hell mech
-    public void Cataclysm()
+    public IEnumerator Cataclysm()
     {
-        Debug.Log("Cataclysm start");
+        Debug.Log("Cataclysm");
         // Cracks connect
 
         // Shoots 3x3
-        // Turn to player
-        // 3x coroutine
-        StartCoroutine(TripleBullet());
+        var offset = 36f;
+        var pentagonAngle = 72f;
+
+        for (int i = 0; i <= 4; i++)
+        {
+            yield return StartCoroutine(CataclysmBullets(offset + i * pentagonAngle));
+        }
 
         // Beam attack
     }
 
-    public IEnumerator TripleBullet()
+    private void FollowPlayer()
     {
-        var spread = Quaternion.AngleAxis(10, transform.position);
-        var spread2 = Quaternion.AngleAxis(-10, transform.position);
+        Vector3 direction = player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Instantiate(BulletPrefab, transform.position, transform.rotation * spread);
-        Instantiate(BulletPrefab, transform.position, transform.rotation);
-        Instantiate(BulletPrefab, transform.position, transform.rotation * spread2);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f * Time.deltaTime);
+    }
+
+    private IEnumerator CataclysmBullets(float angle)
+    {
+        Debug.Log("Cataclysm bullets");
+        yield return TripleBullet(angle);
+        yield return new WaitForSeconds(1f);
+        yield return TripleBullet(angle);
+        yield return new WaitForSeconds(1f);
+        yield return TripleBullet(angle);
+    }
+
+    public IEnumerator TripleBullet(float angle)
+    {
+        Debug.Log($"Triple bullet {angle}");
+        var position = transform.position;
+        var start = position + Vector3.up;
+
+        var shiftedPoint = start - position;
+        var rotation = Quaternion.Euler(Vector3.forward * angle);
+        shiftedPoint = rotation * shiftedPoint;
+        var rotatedPoint = shiftedPoint + position;
+
+        var spread = 20f;
+        var angle1 = Quaternion.AngleAxis(angle + spread, Vector3.forward);
+        var angle2 = Quaternion.AngleAxis(angle, Vector3.forward);
+        var angle3 = Quaternion.AngleAxis(angle - spread, Vector3.forward);
+
+
+        Instantiate(BulletPrefab, rotatedPoint, angle1);
+        Instantiate(BulletPrefab, rotatedPoint, angle2);
+        Instantiate(BulletPrefab, rotatedPoint, angle3);
 
         yield return null;
     }
@@ -148,7 +191,7 @@ public class Mechanics : MonoBehaviour
     {
         for (var c = 0; c < 15; c++)
         {
-            var interval = RandomGeneration.RandomInterval(0.5f, 1.5f);
+            var interval = RandomGeneration.RandomInterval(0.5f, 7.5f);
             Invoke(nameof(SpawnSoul), interval);
             yield return null;
         }

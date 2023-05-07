@@ -194,7 +194,7 @@ public class BossController : MonoBehaviour
         Mechanics.AutoAttack();
     }
 
-   // void Start() { Mechanics.SoulFeast(); Mechanics.Cataclysm();}
+    // void Start() { StartCoroutine(Mechanics.Cataclysm());}
 
     // Update is called once per frame
     void Update()
