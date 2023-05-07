@@ -1,12 +1,14 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Library;
 
 public class SoulFeastController : MonoBehaviour
 {
     private BossSpritesController bossSpritesController;
     private BossController bossController;
+
+    public GameObject SoulPrefab;
 
     void Start()
     {

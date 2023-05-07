@@ -12,10 +12,6 @@ public class Mechanics : MonoBehaviour
 {
     public BossController bossController;
 
-    public GameObject MinionPrefab;
-    public GameObject SoulPrefab;
-    public GameObject BulletPrefab;
-
     [Header("Configuration")]
     public float SlamWindUpDuration = 1f;
     public float SlamDuration = 0.03f;

@@ -7,6 +7,8 @@ public class CataclysmController : MonoBehaviour
     private BossSpritesController bossSpritesController;
     private BossController bossController;
 
+    public GameObject BulletPrefab;
+
     void Start()
     {
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
