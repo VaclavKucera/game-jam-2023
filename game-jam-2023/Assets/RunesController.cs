@@ -35,6 +35,15 @@ public class RunesController : TelegraphController
                 bossController.takeDamage(damage * 20);
                 Debug.Log("BOSS GOT SLAPPADOODLED LMAO");
             }
+
+            GameObject[] souls = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (var soul in souls)
+            {
+                if (Vector2.Distance(soul.transform.position, this.transform.position) <= 0.5f)
+                {
+                    soul.GetComponent<SoulController>().takeDamage(damage * 10);
+                } 
+            }
         }
     }
 
