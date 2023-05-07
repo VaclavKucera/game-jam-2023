@@ -1260,6 +1260,11 @@ Transform:
   m_Father: {fileID: 2100040670}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1021493478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+  m_PrefabInstance: {fileID: 1630494882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1086937698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1325,6 +1330,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5835005341546803104, guid: 9c8e0259665d6417d86cdf8a10f04cb1, type: 3}
   m_PrefabInstance: {fileID: 1086937698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1148826086 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+  m_PrefabInstance: {fileID: 1367415587}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1170867448
 GameObject:
@@ -1501,34 +1511,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2100040670}
     m_Modifications:
-    - target: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_Name
-      value: Pylon_BottomRight
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.79
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
     - target: {fileID: 876811557806804967, guid: b36cb345f685b464c88fd8879255e6bf, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1576,6 +1558,34 @@ PrefabInstance:
     - target: {fileID: 1411655780161294140, guid: b36cb345f685b464c88fd8879255e6bf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_Name
+      value: Pylon_BottomRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646000386785859067, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1695,6 +1705,11 @@ Transform:
   m_Father: {fileID: 1182766377}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1411447648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+  m_PrefabInstance: {fileID: 409908035794491266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1427978714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2246,6 +2261,7 @@ MonoBehaviour:
   mainAnimator: {fileID: 582051972}
   TotemPrefab: {fileID: 4915103548232353350, guid: d8f4430efb286db4a8d3ac4754c95170, type: 3}
   MinionPrefab: {fileID: 4915103548232353350, guid: 2fcbc08faff568746b48d112e314733e, type: 3}
+  BulletPrefab: {fileID: 4915103548232353350, guid: 4c29a4553926dde43a543fa790cd9bf7, type: 3}
 --- !u!114 &1785775813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2258,11 +2274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8303742ef559fb74b8068df551a8d36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pylon_Top: {fileID: 0}
-  Pylon_TopRight: {fileID: 0}
-  Pylon_BottomRight: {fileID: 0}
-  Pylon_BottomLeft: {fileID: 0}
-  Pylon_TopLeft: {fileID: 0}
+  Pylon_Top: {fileID: 1411447648}
+  Pylon_TopRight: {fileID: 2045974285}
+  Pylon_BottomRight: {fileID: 1901766922}
+  Pylon_BottomLeft: {fileID: 1148826086}
+  Pylon_TopLeft: {fileID: 1021493478}
   Mechanics: {fileID: 1785775812}
   tetherCooldown: 0
   runesCooldown: 0
@@ -2332,6 +2348,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b36cb345f685b464c88fd8879255e6bf, type: 3}
+--- !u!1 &1901766922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+  m_PrefabInstance: {fileID: 1294519947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1931888081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2478,6 +2499,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2045974285 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2230482781705642198, guid: fe02eb912401f4d98a4c55c4d27054b4, type: 3}
+  m_PrefabInstance: {fileID: 1450167872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2055961295
 GameObject:
   m_ObjectHideFlags: 0
