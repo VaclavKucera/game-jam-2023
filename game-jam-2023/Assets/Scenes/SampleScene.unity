@@ -2438,7 +2438,7 @@ GameObject:
   - component: {fileID: 1785775812}
   m_Layer: 0
   m_Name: BossController
-  m_TagString: Enemy
+  m_TagString: BossController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2470,7 +2470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfb9d7dfd688c44a82a0e07bfd538c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossController: {fileID: 0}
+  bossController: {fileID: 1785775813}
+  TelegraphOnPlayer: {fileID: 3455357778501600759, guid: aa46d54995c19b748ad1bb2fd2072725, type: 3}
+  Rune: {fileID: 3455357778501600759, guid: 1718dc4e23af5ac4590e718abcd1969e, type: 3}
   SlamWindUpDuration: 1
   SlamDuration: 0.03
   SlamAftercast: 0.5
@@ -2503,7 +2505,7 @@ MonoBehaviour:
   Pylon_TopLeft: {fileID: 1021493478}
   Mechanics: {fileID: 1785775812}
   tetherCooldown: 0
-  runesCooldown: 0
+  runesCooldown: 25
   tetherActivationDuration: 3
   runesActivationDuration: 3
   isAbleToAutoAttack: 1

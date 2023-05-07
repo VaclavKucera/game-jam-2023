@@ -26,7 +26,7 @@ public class BossSpritesController : MonoBehaviour
     void Start()
     {
         if (bossController == null)
-            bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
+            bossController = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>();
         else
             bossController = bossController.GetComponent<BossController>();
 

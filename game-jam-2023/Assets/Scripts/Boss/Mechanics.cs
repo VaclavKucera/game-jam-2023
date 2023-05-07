@@ -48,10 +48,6 @@ public class Mechanics : MonoBehaviour
 
     public void AutoAttack()
     {
-        Slam();
-        bossController.isAttacking = true;
-        return;
-
         Debug.Log("Auto-attack started: " + nextAutoAttack);
         switch (nextAutoAttack)
         {
