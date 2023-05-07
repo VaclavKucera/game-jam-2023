@@ -11,8 +11,10 @@ public class BossArmsController : MonoBehaviour
 
     public GameObject player;
 
+    private Mechanics Mechanics;
+
     // TODO: Might wanna take this from some other common place
-    private float midArmSnapDuration = 0.3f;
+    private float midArmSnapDuration = 1f;
     private float midArmAimDuration = 2f;
     private float midArmTopDelay = 3f;
     private float midArmAttackDuration = 0.03f;
@@ -40,7 +42,25 @@ public class BossArmsController : MonoBehaviour
         rightArmOffsetContainer = rightArm.transform.GetChild(0).gameObject;
         bossMainAnimator = transform.parent.GetComponent<BossMainAnimator>();
         SetFistHeight(FistHeight.Mid);
+
+        ConfigureAnimations();
     }
+
+    void ConfigureAnimations()
+    {
+        Mechanics = bossMainAnimator.BossController.Mechanics;
+
+        midArmSnapDuration = Mechanics.SlamWindUpDuration * 0.3f;
+        midArmAimDuration = Mechanics.SlamWindUpDuration * 0.7f;
+        midArmTopDelay = Mechanics.SlamWindUpDuration * 0.2f;
+        midArmAttackDuration = Mechanics.SlamDuration;
+        midArmWaitCooldown = Mechanics.SlamAftercast;
+
+        sideArmAimDuration = Mechanics.PoundWindUpDuration;
+        sideArmTopDelay = Mechanics.PoundWindUpDuration * 0.1f;
+        sideArmAttackDuration = Mechanics.PoundAttackDuration;
+        sideArmWaitCooldown = Mechanics.PoundAftercast;
+}
 
     // Update is called once per frame
     void Update()
@@ -219,9 +239,12 @@ public class BossArmsController : MonoBehaviour
 
         // Wait and return to default
         yield return new WaitForSeconds(this.midArmWaitCooldown);
-        SetFistHeight(FistHeight.Mid);
-        SetArmPositionType(ArmPositionType.Default);
-
+        if (count == 0)
+        {
+            SetFistHeight(FistHeight.Mid);
+            SetArmPositionType(ArmPositionType.Default);
+            yield return new WaitForSeconds(armMoveDuration);
+        }
         bossMainAnimator.SlamAttack(count);
     }
 
@@ -257,5 +280,6 @@ public class BossArmsController : MonoBehaviour
         yield return new WaitForSeconds(this.sideArmWaitCooldown);
         SetFistHeight(FistHeight.Mid);
         SetArmPositionType(ArmPositionType.Default);
+        yield return new WaitForSeconds(armMoveDuration);
     }
 }
