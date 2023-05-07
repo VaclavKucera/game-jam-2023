@@ -12,6 +12,8 @@ public class Mechanics : MonoBehaviour
     public GameObject TotemPrefab;
     public GameObject SoulPrefab;
     public GameObject BulletPrefab;
+    public GameObject TelegraphOnPlayer;
+    public GameObject Rune;
 
     [Header("Configuration")]
     public float SlamWindUpDuration = 1f;
@@ -193,7 +195,17 @@ public void Cascade()
 
     public void Runes()
     {
-        //do something
+        StartCoroutine(SpawnRunes());
+    }
+    IEnumerator SpawnRunes()
+    {
+        for (int i = 5; i > 0; i--)
+        {
+            var circleController = Instantiate(TelegraphOnPlayer).GetComponent<TelegraphOnPlayerController>();
+            circleController.onCompletion = () => { Instantiate(Rune, circleController.transform.position, Quaternion.identity); };
+            yield return new WaitForSeconds(1);
+        }
+        
     }
     #endregion
 }

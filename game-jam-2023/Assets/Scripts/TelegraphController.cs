@@ -19,7 +19,7 @@ public class TelegraphController : MonoBehaviour
         timeToFill = seconds;
     }
 
-    public void TriggerEffect()
+    public virtual void TriggerEffect()
     {
         if (onCompletion != null)
             onCompletion();
