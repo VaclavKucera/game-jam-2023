@@ -12,6 +12,15 @@ public class Mechanics : MonoBehaviour
     public GameObject TotemPrefab;
     public GameObject MinionPrefab;
 
+    [Header("Configuration")]
+    public float SlamWindUpDuration = 1f;
+    public float SlamDuration = 0.03f;
+    public float SlamAftercast = 0.5f;
+
+    public float PoundWindUpDuration = 2f;
+    public float PoundAttackDuration = 0.05f;
+    public float PoundAftercast = 1.5f;
+
 
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
