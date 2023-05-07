@@ -22,7 +22,7 @@ public class BossController : MonoBehaviour
 
     [Header("Animation Durations")]
     public float tetherActivationDuration = 3f;
-    public float runesActivationDuration = 3f;
+    public float runesActivationDuration = 5f;
 
     [Header("Public Fields")]
     public const int totalHealth = 40000;

@@ -6,13 +6,15 @@ public class CataclysmController : MonoBehaviour
 {
     private BossSpritesController bossSpritesController;
     private BossController bossController;
+    private SpriteRenderer layerSeparationActive;
 
     public GameObject BulletPrefab;
 
     void Start()
     {
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
-        bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+        bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
+        layerSeparationActive = GameObject.FindGameObjectWithTag("LayerSeparationActive").GetComponent<SpriteRenderer>();
     }
 
     public void Execute() {
@@ -21,6 +23,8 @@ public class CataclysmController : MonoBehaviour
 
     public IEnumerator CataclysmSequence() {
         // Cracks connect
+
+        layerSeparationActive.enabled = true;
 
         // Shoots 3x3
         var offset = 36f;
@@ -32,6 +36,8 @@ public class CataclysmController : MonoBehaviour
         }
 
         // Beam attack
+        layerSeparationActive.enabled = false;
+
         bossController.Mechanics.OnCataclysmComplete();
     }
 

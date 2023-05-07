@@ -11,6 +11,8 @@ using Vector3 = UnityEngine.Vector3;
 public class Mechanics : MonoBehaviour
 {
     public BossController bossController;
+    public GameObject TelegraphOnPlayer;
+    public GameObject Rune;
 
     [Header("Configuration")]
     public float SlamWindUpDuration = 1f;
@@ -37,7 +39,7 @@ public class Mechanics : MonoBehaviour
 
     void Start() {
         if (bossController == null)
-            bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+            bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
         else
             bossController = bossController.GetComponent<BossController>();
 
@@ -46,8 +48,6 @@ public class Mechanics : MonoBehaviour
 
     public void AutoAttack()
     {
-        bossController.isAttacking = true;
-
         Debug.Log("Auto-attack started: " + nextAutoAttack);
         switch (nextAutoAttack)
         {
@@ -183,7 +183,17 @@ public class Mechanics : MonoBehaviour
 
     public void Runes()
     {
-        //do something
+        StartCoroutine(SpawnRunes());
+    }
+    IEnumerator SpawnRunes()
+    {
+        for (int i = 5; i > 0; i--)
+        {
+            var circleController = Instantiate(TelegraphOnPlayer).GetComponent<TelegraphOnPlayerController>();
+            circleController.onCompletion = () => { Instantiate(Rune, circleController.transform.position, Quaternion.identity); };
+            yield return new WaitForSeconds(1);
+        }
+        
     }
     #endregion
 }

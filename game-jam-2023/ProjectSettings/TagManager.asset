@@ -8,6 +8,8 @@ TagManager:
   - Boss
   - Enemy
   - BossSpritesController
+  - BossController
+  - LayerSeparationActive
   layers:
   - Default
   - TransparentFX

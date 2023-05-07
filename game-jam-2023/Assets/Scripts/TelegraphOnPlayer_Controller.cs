@@ -8,7 +8,7 @@ public class TelegraphOnPlayerController : TelegraphController
 {
     public GameObject Player;
 
-    private void Awake()
+    void Start()
     {
         if (Player == null)
         {
