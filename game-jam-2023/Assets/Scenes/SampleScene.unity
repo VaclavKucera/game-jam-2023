@@ -3382,6 +3382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MechControllers
       objectReference: {fileID: 0}
+    - target: {fileID: 7277820127482266331, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
+      propertyPath: SideSlamWavePrefab
+      value: 
+      objectReference: {fileID: 1403915460171688239, guid: f29f2fbc0dd734b92ac328a5afd19421, type: 3}
     - target: {fileID: 8397325274282870400, guid: ea47884da960d4ca4a3132cf5b57e7cc, type: 3}
       propertyPath: m_Color.a
       value: 1

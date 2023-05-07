@@ -7,8 +7,13 @@ public class SideSlamController : MonoBehaviour
 {
     private BossSpritesController bossSpritesController;
     private BossController bossController;
+    private GameObject player;
 
     public GameObject StaticTelegraphPrefab;
+    public GameObject SideSlamWavePrefab;
+
+    public int directSlamDamage = 30;
+    public int shockwaveDamage = 5;
 
     private float sideArmAimDuration = 2f;
     private float sideArmTopDelay = 3f;
@@ -19,6 +24,7 @@ public class SideSlamController : MonoBehaviour
     {
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
         bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         var mechanics = bossController.Mechanics;
 
@@ -69,6 +75,22 @@ public class SideSlamController : MonoBehaviour
         bossSpritesController.SetFistHeight(BossSpritesController.FistHeight.Mid);
         yield return new WaitForSeconds(this.sideArmAttackDuration);
         bossSpritesController.SetFistHeight(BossSpritesController.FistHeight.Bottom);
+
+        // Spawn shockwaves
+        var wave1 = Instantiate(SideSlamWavePrefab, leftPoint, Quaternion.identity);
+        var wave2 = Instantiate(SideSlamWavePrefab, rightPoint, Quaternion.identity);
+        wave1.GetComponent<SideSlamParticleSystemController>().waveDamage = shockwaveDamage;
+        wave2.GetComponent<SideSlamParticleSystemController>().waveDamage = shockwaveDamage;
+        wave1.GetComponent<ParticleSystem>().trigger.SetCollider(0, player.GetComponent<Collider2D>());
+        wave2.GetComponent<ParticleSystem>().trigger.SetCollider(0, player.GetComponent<Collider2D>());
+
+
+        // Check if player is within 5 units of either point
+        var playerPos = (Vector2)player.transform.position;
+        if ((playerPos - leftPoint).magnitude < 0.5f  || (playerPos - rightPoint).magnitude < 0.5f) {
+            Debug.Log("Hit by side slam");
+            player.GetComponent<PlayerController>().TakeDamage(directSlamDamage);
+        }
 
         // Cooldown and reset
         yield return new WaitForSeconds(this.sideArmWaitCooldown);
