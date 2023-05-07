@@ -17,7 +17,7 @@ public class MidSlamController : MonoBehaviour
     void Start()
     {
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
-        bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+        bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
         player = GameObject.FindGameObjectWithTag("Player").gameObject;
 
         var mechanics = bossController.Mechanics;

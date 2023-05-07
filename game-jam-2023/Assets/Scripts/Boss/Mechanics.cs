@@ -39,7 +39,7 @@ public class Mechanics : MonoBehaviour
 
     void Start() {
         if (bossController == null)
-            bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+            bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
         else
             bossController = bossController.GetComponent<BossController>();
 

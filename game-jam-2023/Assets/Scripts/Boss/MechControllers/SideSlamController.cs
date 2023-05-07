@@ -18,7 +18,7 @@ public class SideSlamController : MonoBehaviour
     void Start()
     {
         bossSpritesController = GameObject.FindGameObjectWithTag("BossSpritesController").GetComponent<BossSpritesController>();
-        bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+        bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
 
         var mechanics = bossController.Mechanics;
 

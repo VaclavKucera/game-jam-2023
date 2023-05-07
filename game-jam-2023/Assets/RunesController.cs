@@ -14,7 +14,7 @@ public class RunesController : TelegraphController
 
     private void Start()
     {
-        bossController = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>();
+        bossController = GameObject.FindGameObjectWithTag("BossController").GetComponent<BossController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         onCompletion = () => { isActive = true; };
     }
