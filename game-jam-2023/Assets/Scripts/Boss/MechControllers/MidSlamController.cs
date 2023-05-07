@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MidSlamController : MonoBehaviour
 {
-    public float damageOnHit = 5f;
+    public int damageOnHit = 5;
 
     private BossSpritesController bossSpritesController;
     private BossController bossController;
