@@ -7,9 +7,8 @@ using static BossController;
 
 public class Mechanics : MonoBehaviour
 {
-    public BossController BossController;
-    public BossMainAnimator mainAnimator;
-    public GameObject TotemPrefab;
+    public BossController bossController;
+
     public GameObject MinionPrefab;
     public GameObject BulletPrefab;
 
@@ -22,15 +21,30 @@ public class Mechanics : MonoBehaviour
     public float PoundAttackDuration = 0.05f;
     public float PoundAftercast = 1.5f;
 
+    [Header("Mechanic controllers")]
+    public CascadeController cascadeController;
+    public MidSlamController midSlamController;
+    public SideSlamController sideSlamController;
+    public SummonTotemsController summonTotemsController;
+    public HurricaneController hurricaneController;
+    public CataclysmController cataclysmController;
+    public SoulFeastController soulFeastController;
 
     private bool AASpecial_iterator = true;
     private enum AutoAttackTypes { Totems, Slam, GroundPound, Hurricane, Special }
     private AutoAttackTypes nextAutoAttack = 0;
 
+    void Start() {
+        if (bossController == null)
+            bossController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<BossController>();
+        else
+            bossController = bossController.GetComponent<BossController>();
+    }
 
-    #region Basic Attacks
     public void AutoAttack()
     {
+        bossController.isAttacking = true;
+
         Debug.Log("Auto-attack started: " + nextAutoAttack);
         switch (nextAutoAttack)
         {
@@ -40,20 +54,16 @@ public class Mechanics : MonoBehaviour
             case AutoAttackTypes.Hurricane: Hurricane(); break;
             case AutoAttackTypes.Special:
                 if (AASpecial_iterator)
-                {
                     Cataclysm();
-                    AASpecial_iterator = false;
-                }
                 else
-                {
                     SoulFeast();
-                    AASpecial_iterator = true;
-                }
+                AASpecial_iterator = !AASpecial_iterator;
                 break;
         }
         Debug.Log("We should still have: " + nextAutoAttack);
         QueueNextAuto();
     }
+
     private void QueueNextAuto()
     {
         //TODO: add all available autos
@@ -64,85 +74,119 @@ public class Mechanics : MonoBehaviour
         else nextAutoAttack++;
     }
 
+    #region Basic Attacks
     public void SummonTotems()
     {
-        Debug.Log("Summon start");
-        StartCoroutine(SummonTotemsCoroutine());
-        Debug.Log("Summon end");
-        //place 3 turrets that can be destroyed with Slam attacks
+        summonTotemsController.Execute();
     }
-    IEnumerator SummonTotemsCoroutine()
+    public void OnSummonTotemsComplete()
     {
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        Instantiate(TotemPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        BossController.onAutoattackAnimationComplete();
-        Debug.Log("End of Totem Coro");
+        bossController.isAttacking = false;
     }
 
     public void Slam()
     {
-        BossController.isAttacking = true;
-        mainAnimator.SlamAttack(3);
+        midSlamController.Execute();
     }
-    
+    public void OnSlamComplete()
+    {
+        bossController.isAttacking = false;
+    }
+
     public void GroundPound()
     {
-        var left = RandomGeneration.RandomPosition();
-        var right = RandomGeneration.RandomPosition();
-        mainAnimator.GroundPoundAttack(left, right);
+        sideSlamController.Execute();
+    }
+    public void OnGroundPoundComplete()
+    {
+        bossController.isAttacking = false;
     }
 
     public void Hurricane()
     {
-        //3 circular patterns
+        Debug.Log("Hurricane start");
+        hurricaneController.Execute();
+        Debug.Log("Hurricane end");
     }
+    public void OnHurricaneComplete()
+    {
+        Debug.Log("Hurricane End - async, executing next attack");
+        bossController.isAttacking = false;
+    }
+
     #endregion
 
     #region Special Attacks
 
-    //bullet hell mech
     public void Cataclysm()
     {
         Debug.Log("Cataclysm start");
-        // Cracks connect
-
-        // Shoots 3x3
-        // Turn to player
-        // 3x coroutine
-        StartCoroutine(TripleBullet());
-
-        // Beam attack
+        cataclysmController.Execute();
+        Debug.Log("Cataclysm end");
     }
-
-    public IEnumerator TripleBullet()
+    public void OnCataclysmComplete()
     {
-        var spread = Quaternion.AngleAxis(10, transform.position);
-        var spread2 = Quaternion.AngleAxis(-10, transform.position);
-
-        Instantiate(BulletPrefab, transform.position, transform.rotation * spread);
-        Instantiate(BulletPrefab, transform.position, transform.rotation);
-        Instantiate(BulletPrefab, transform.position, transform.rotation * spread2);
-
-        yield return null;
+        Debug.Log("Cataclysm End - async, executing next attack");
+        bossController.isAttacking = false;
     }
 
     public void SoulFeast()
     {
-        //spawn adds from the sides of the map crawling to the boss
-        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
-        Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+        Debug.Log("SoulFeast start");
+        soulFeastController.Execute();
+        Debug.Log("SoulFeast end");
     }
+    public void OnSoulFeastComplete()
+    {
+        Debug.Log("SoulFeast End - async, executing next attack");
+        bossController.isAttacking = false;
+    }
+
+    //bullet hell mech
+    // public void Cataclysm()
+    // {
+    //     Debug.Log("Cataclysm start");
+    //     // Cracks connect
+
+    //     // Shoots 3x3
+    //     // Turn to player
+    //     // 3x coroutine
+    //     StartCoroutine(TripleBullet());
+
+    //     // Beam attack
+    // }
+
+    // public IEnumerator TripleBullet()
+    // {
+    //     var spread = Quaternion.AngleAxis(10, transform.position);
+    //     var spread2 = Quaternion.AngleAxis(-10, transform.position);
+
+    //     Instantiate(BulletPrefab, transform.position, transform.rotation * spread);
+    //     Instantiate(BulletPrefab, transform.position, transform.rotation);
+    //     Instantiate(BulletPrefab, transform.position, transform.rotation * spread2);
+
+    //     yield return null;
+    // }
+
+    // public void SoulFeast()
+    // {
+    //     //spawn adds from the sides of the map crawling to the boss
+    //     Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+    //     Instantiate(MinionPrefab, RandomGeneration.RandomPosition(), Quaternion.identity);
+    // }
     #endregion
 
     #region HP Based Attacks
 
     public void Cascade()
     {
-        //spawn cascade
+        Debug.Log("Cascade start");
+        cascadeController.Execute();
+        Debug.Log("Cascade end");
+    }
+    public void OnCascadeComplete()
+    {
+        Debug.Log("Cascade End - async");
     }
 
     public void Sacrifice()

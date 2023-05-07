@@ -18,11 +18,15 @@ public class TelegraphOnPlayerController : TelegraphController
 
     private void Update()
     {
-        if (fillerCircle.localScale == new Vector3(1,1,1))
+        elapsedTime += Time.deltaTime;
+        gameObject.transform.position = Player.transform.position;
+
+        float progress = elapsedTime / duration;
+        if (progress >= 1f)
         {
             TriggerEffect();
         }
-        gameObject.transform.position = Player.transform.position;
-        fillerCircle.localScale = Vector3.MoveTowards(fillerCircle.localScale, new Vector3(1, 1, 1), timeToFill * Time.deltaTime);
+
+        fillerCircle.localScale = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(1, 1, 1), Mathf.Clamp(progress, 0, 1));
     }
 }
