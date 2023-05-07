@@ -34,7 +34,7 @@ public class BossController : MonoBehaviour
     protected float tetherTimer;
     protected float runesTimer;
     protected bool isVulnerable = false;
-    protected int currentHealth = totalHealth;
+    public int currentHealth = totalHealth;
 
     [Flags]
     public enum Breakpoints {
