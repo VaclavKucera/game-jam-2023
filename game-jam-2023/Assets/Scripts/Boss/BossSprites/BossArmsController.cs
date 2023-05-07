@@ -6,22 +6,7 @@ using UnityEngine;
 public class BossArmsController : MonoBehaviour
 {
     public float armMoveDuration = 1.0f;
-
     public GameObject player;
-
-    private Mechanics Mechanics;
-
-    // TODO: Might wanna take this from some other common place
-    private float midArmSnapDuration = 1f;
-    private float midArmAimDuration = 2f;
-    private float midArmTopDelay = 3f;
-    private float midArmAttackDuration = 0.03f;
-    private float midArmWaitCooldown = 1f;
-
-    private float sideArmAimDuration = 2f;
-    private float sideArmTopDelay = 3f;
-    private float sideArmAttackDuration = 0.03f;
-    private float sideArmWaitCooldown = 1f;
 
     private BossSpritesController.FistHeight fistHeight = BossSpritesController.FistHeight.Mid;
 
@@ -40,24 +25,6 @@ public class BossArmsController : MonoBehaviour
         rightArmOffsetContainer = rightArm.transform.GetChild(0).gameObject;
         bossSpritesController = transform.parent.GetComponent<BossSpritesController>();
         SetFistHeight(BossSpritesController.FistHeight.Mid);
-
-        ConfigureAnimations();
-    }
-
-    void ConfigureAnimations()
-    {
-        Mechanics = bossSpritesController.bossController.Mechanics;
-
-        midArmSnapDuration = Mechanics.SlamWindUpDuration * 0.3f;
-        midArmAimDuration = Mechanics.SlamWindUpDuration * 0.7f;
-        midArmTopDelay = Mechanics.SlamWindUpDuration * 0.2f;
-        midArmAttackDuration = Mechanics.SlamDuration;
-        midArmWaitCooldown = Mechanics.SlamAftercast;
-
-        sideArmAimDuration = Mechanics.PoundWindUpDuration;
-        sideArmTopDelay = Mechanics.PoundWindUpDuration * 0.1f;
-        sideArmAttackDuration = Mechanics.PoundAttackDuration;
-        sideArmWaitCooldown = Mechanics.PoundAftercast;
     }
 
     public IEnumerator PointArmAtPosition(BossSpritesController.Arm arm, Vector2 targetPoint)
@@ -181,42 +148,5 @@ public class BossArmsController : MonoBehaviour
     {
         Vector2 direction = targetPoint - (Vector2)position;
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-    }
-
-    // TODO: This needs to move
-
-    private IEnumerator SideSlamSequence(Vector2 leftPoint, Vector2 rightPoint) {
-        SetArmPositionType(BossSpritesController.ArmPositionType.SideSlam);
-        SetFistHeight(BossSpritesController.FistHeight.Bottom);
-
-        // Animate to provided points
-        this.armMoveDuration = this.sideArmAimDuration;
-        StartCoroutine(PointArmAtPosition(BossSpritesController.Arm.Left, leftPoint));
-        StartCoroutine(PointArmAtPosition(BossSpritesController.Arm.Right, rightPoint));
-
-        float leftArmAngle = CalculateTargetAngle(transform.position, leftPoint);
-        float rightArmAngle = CalculateTargetAngle(transform.position, rightPoint);
-        float lookAtAngle = (leftArmAngle + rightArmAngle) / 2 + 90;
-        bossSpritesController.LookAtAngle(lookAtAngle);
-
-        // Raise fists mid animation
-        yield return new WaitForSeconds(this.sideArmAimDuration / 2);
-        SetFistHeight(BossSpritesController.FistHeight.Mid);
-        yield return new WaitForSeconds(this.sideArmAimDuration / 2);
-        SetFistHeight(BossSpritesController.FistHeight.Top);
-
-        // Wait until slam
-        yield return new WaitForSeconds(this.sideArmTopDelay);
-
-        // Slam down
-        SetFistHeight(BossSpritesController.FistHeight.Mid);
-        yield return new WaitForSeconds(this.sideArmAttackDuration);
-        SetFistHeight(BossSpritesController.FistHeight.Bottom);
-
-        // Cooldown and reset
-        yield return new WaitForSeconds(this.sideArmWaitCooldown);
-        SetFistHeight(BossSpritesController.FistHeight.Mid);
-        SetArmPositionType(BossSpritesController.ArmPositionType.Default);
-        yield return new WaitForSeconds(armMoveDuration);
     }
 }
